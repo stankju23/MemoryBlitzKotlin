@@ -5,7 +5,14 @@ package com.example.stanislavcavajda.memoryblitz.Data
  */
 object Constants {
 
-    const val SETTINGS_ENDLESS = 0
-    const val SETTINGS_SPEED_GAME = 1
+    const val PROGRESS_GAME = 0
+    const val CLASSIC_GAME = 1
+    const val CLASSIC_GAME_2x2 = 0
+    const val CLASSIC_GAME_2x3 = 1
+    const val CLASSIC_GAME_3x3 = 2
+    const val WANTED_CARDS_ONE = 0
+    const val WANTED_CARDS_TWO = 1
+    const val WANTED_CARDS_THREE = 2
+
 
 }

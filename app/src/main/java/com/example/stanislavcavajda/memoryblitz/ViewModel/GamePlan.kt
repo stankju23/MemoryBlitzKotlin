@@ -3,20 +3,23 @@ package com.example.stanislavcavajda.memoryblitz.ViewModel
 import android.content.Context
 import android.databinding.BaseObservable
 import android.databinding.ObservableArrayList
-import android.view.View
-import com.example.stanislavcavajda.memoryblitz.Model.GamePlanItem
-import com.example.stanislavcavajda.memoryblitz.R
-import kotlinx.android.synthetic.main.activity_progress_game.view.*
+import android.os.Handler
 
 /**
  * Created by stanislavcavajda on 04/10/2017.
  */
 class GamePlan : BaseObservable {
 
-    var list: ObservableArrayList<GamePlanItem> = ObservableArrayList<GamePlanItem>()
+    var list: ObservableArrayList<GamePlanItemViewModel> = ObservableArrayList<GamePlanItemViewModel>()
 
-    constructor(itemList: ArrayList<GamePlanItem>,context: Context) {
-        this.list.addAll(itemList)
+    constructor(itemViewModelList: ArrayList<GamePlanItemViewModel>, context: Context) {
+        this.list.addAll(itemViewModelList)
+
+        var handler = Handler()
+        handler.postDelayed(Runnable {
+            for (item in list) {
+                item.isAnimation.set(true)
+        } },2000)
     }
 
 }

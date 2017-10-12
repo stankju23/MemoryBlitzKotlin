@@ -20,7 +20,7 @@ class GameTypeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_game_type)
 
         speed_game.setOnClickListener {
-            DataManager.typeSettingsActivity = Constants.SETTINGS_SPEED_GAME
+            DataManager.typeSettingsActivity = Constants.CLASSIC_GAME
             it.startAnimation(buttonClick)
             var intent = Intent(this, SpeedGameSettingsActivity::class.java)
             startActivity(intent)
@@ -28,7 +28,7 @@ class GameTypeActivity : AppCompatActivity() {
         }
 
         endless_game.setOnClickListener {
-            DataManager.typeSettingsActivity = Constants.SETTINGS_ENDLESS
+            DataManager.typeSettingsActivity = Constants.PROGRESS_GAME
             it.startAnimation(buttonClick)
             var intent = Intent(this, EndlessGameSettingsActivity::class.java)
             startActivity(intent)
@@ -36,7 +36,8 @@ class GameTypeActivity : AppCompatActivity() {
         }
 
         back_button.setOnClickListener {
-            onBackPressed()
+            super.onBackPressed()
+            overridePendingTransition(R.anim.abc_slide_in_bottom,R.anim.abc_slide_out_bottom)
         }
     }
 
@@ -59,9 +60,6 @@ class GameTypeActivity : AppCompatActivity() {
         }
 
     override fun onBackPressed() {
-        var intent = Intent(this,StartActivity::class.java)
-        startActivity(intent)
-        overridePendingTransition(R.anim.abc_slide_in_bottom,R.anim.abc_slide_out_bottom)
     }
 
 }

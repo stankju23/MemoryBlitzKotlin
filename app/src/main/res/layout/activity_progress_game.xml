@@ -45,69 +45,69 @@
             android:id="@+id/image2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/card_background"
+            android:alpha="@{(viewModel.list.get(1).clicked) ? 0.5f : 1f}"
+            android:background="@drawable/mini_card_background"
             android:elevation="5dp"
+            android:onClick="@{viewModel.list.get(1).itemClick}"
+            android:padding="20dp"
+            android:src="@{viewModel.list.get(1).image}"
             app:layout_constraintBottom_toBottomOf="@+id/image3"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/image3"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/image1"
-            app:layout_constraintTop_toTopOf="@+id/image3"
-            android:src="@{viewModel.list.get(1).image}"
-            android:padding="20dp"
-            android:alpha="@{(viewModel.list.get(1).clicked) ? 0.5f : 1f}"
-            android:onClick="@{viewModel.list.get(1).itemClick}"/>
+            app:layout_constraintTop_toTopOf="@+id/image3" />
 
         <ImageView
             android:id="@+id/image1"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/card_background"
+            android:alpha="@{(viewModel.list.get(0).clicked) ? 0.5f : 1f}"
+            android:background="@drawable/mini_card_background"
             android:elevation="5dp"
+            android:onClick="@{viewModel.list.get(0).itemClick}"
+            android:padding="20dp"
+            android:src="@{viewModel.list.get(0).image}"
             app:layout_constraintBottom_toBottomOf="@+id/image2"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/image2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/image2"
-            android:src="@{viewModel.list.get(0).image}"
-            android:padding="20dp"
-            android:alpha="@{(viewModel.list.get(0).clicked) ? 0.5f : 1f}"
-            android:onClick="@{viewModel.list.get(0).itemClick}"/>
+            app:layout_constraintTop_toTopOf="@+id/image2" />
 
         <ImageView
             android:id="@+id/image3"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/card_background"
+            android:alpha="@{(viewModel.list.get(2).clicked) ? 0.5f : 1f}"
+            android:background="@drawable/mini_card_background"
             android:elevation="5dp"
+            android:onClick="@{viewModel.list.get(2).itemClick}"
+            android:padding="20dp"
+            android:src="@{viewModel.list.get(2).image}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/image2"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@{viewModel.list.get(2).image}"
-            android:padding="20dp"
-            android:alpha="@{(viewModel.list.get(2).clicked) ? 0.5f : 1f}"
-            android:onClick="@{viewModel.list.get(2).itemClick}"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/image4"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/card_background"
+            android:alpha="@{(viewModel.list.get(3).clicked) ? 0.5f : 1f}"
+            android:background="@drawable/mini_card_background"
             android:elevation="5dp"
+            android:onClick="@{viewModel.list.get(3).itemClick}"
+            android:padding="20dp"
+            android:src="@{viewModel.list.get(3).image}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/image5"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image1"
-            android:src="@{viewModel.list.get(3).image}"
-            android:padding="20dp"
-            android:alpha="@{(viewModel.list.get(3).clicked) ? 0.5f : 1f}"
-            android:onClick="@{viewModel.list.get(3).itemClick}"/>
+            app:layout_constraintTop_toBottomOf="@+id/image1" />
 
         <ImageView
             android:id="@+id/image5"
@@ -115,35 +115,35 @@
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:background="@drawable/card_background"
+            android:alpha="@{(viewModel.list.get(4).clicked) ? 0.5f : 1f}"
+            android:background="@drawable/mini_card_background"
             android:elevation="5dp"
+            android:onClick="@{viewModel.list.get(4).itemClick}"
+            android:padding="20dp"
+            android:src="@{viewModel.list.get(4).image}"
             app:layout_constraintBottom_toBottomOf="@+id/image4"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/image6"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/image4"
-            app:layout_constraintTop_toTopOf="@+id/image4"
-            android:src="@{viewModel.list.get(4).image}"
-            android:padding="20dp"
-            android:alpha="@{(viewModel.list.get(4).clicked) ? 0.5f : 1f}"
-            android:onClick="@{viewModel.list.get(4).itemClick}"/>
+            app:layout_constraintTop_toTopOf="@+id/image4" />
 
         <ImageView
             android:id="@+id/image6"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/card_background"
+            android:alpha="@{(viewModel.list.get(5).clicked) ? 0.5f : 1f}"
+            android:background="@drawable/mini_card_background"
             android:elevation="5dp"
+            android:onClick="@{viewModel.list.get(5).itemClick}"
+            android:padding="20dp"
+            android:src="@{viewModel.list.get(5).image}"
             app:layout_constraintBottom_toBottomOf="@+id/image5"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/image5"
-            app:layout_constraintTop_toTopOf="@+id/image5"
-            android:src="@{viewModel.list.get(5).image}"
-            android:padding="20dp"
-            android:alpha="@{(viewModel.list.get(5).clicked) ? 0.5f : 1f}"
-            android:onClick="@{viewModel.list.get(5).itemClick}"/>
+            app:layout_constraintTop_toTopOf="@+id/image5" />
 
         <ImageView
             android:id="@+id/image7"
@@ -151,18 +151,18 @@
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/card_background"
+            android:alpha="@{(viewModel.list.get(6).clicked) ? 0.5f : 1f}"
+            android:background="@drawable/mini_card_background"
             android:elevation="5dp"
+            android:onClick="@{viewModel.list.get(6).itemClick}"
+            android:padding="20dp"
+            android:src="@{viewModel.list.get(6).image}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/image8"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image4"
-            android:src="@{viewModel.list.get(6).image}"
-            android:padding="20dp"
-            android:alpha="@{(viewModel.list.get(6).clicked) ? 0.5f : 1f}"
-            android:onClick="@{viewModel.list.get(6).itemClick}"/>
+            app:layout_constraintTop_toBottomOf="@+id/image4" />
 
         <ImageView
             android:id="@+id/image8"
@@ -170,35 +170,35 @@
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:background="@drawable/card_background"
+            android:alpha="@{(viewModel.list.get(7).clicked) ? 0.5f : 1f}"
+            android:background="@drawable/mini_card_background"
             android:elevation="5dp"
+            android:onClick="@{viewModel.list.get(7).itemClick}"
+            android:padding="20dp"
+            android:src="@{viewModel.list.get(7).image}"
             app:layout_constraintBottom_toBottomOf="@+id/image7"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/image9"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/image7"
-            app:layout_constraintTop_toTopOf="@+id/image7"
-            android:src="@{viewModel.list.get(7).image}"
-            android:padding="20dp"
-            android:alpha="@{(viewModel.list.get(7).clicked) ? 0.5f : 1f}"
-            android:onClick="@{viewModel.list.get(7).itemClick}"/>
+            app:layout_constraintTop_toTopOf="@+id/image7" />
 
         <ImageView
             android:id="@+id/image9"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/card_background"
+            android:alpha="@{(viewModel.list.get(8).clicked) ? 0.5f : 1f}"
+            android:background="@drawable/mini_card_background"
             android:elevation="5dp"
+            android:onClick="@{viewModel.list.get(8).itemClick}"
+            android:padding="20dp"
+            android:src="@{viewModel.list.get(8).image}"
             app:layout_constraintBottom_toBottomOf="@+id/image8"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/image8"
-            app:layout_constraintTop_toTopOf="@+id/image8"
-            android:src="@{viewModel.list.get(8).image}"
-            android:padding="20dp"
-            android:alpha="@{(viewModel.list.get(8).clicked) ? 0.5f : 1f}"
-            android:onClick="@{viewModel.list.get(8).itemClick}"/>
+            app:layout_constraintTop_toTopOf="@+id/image8" />
 
 
     </android.support.constraint.ConstraintLayout>
@@ -224,18 +224,5 @@
 
 </android.support.constraint.ConstraintLayout>
 
-    <LinearLayout android:orientation="horizontal"
-        android:weightSum="100"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <ImageView android:layout_weight="50"
-            android:layout_width="0dip"
-            android:layout_height="fill_parent"
-            android:id="@+id/left_image"/>
-        <ImageView android:layout_weight="50"
-            android:layout_width="0dip"
-            android:layout_height="fill_parent"
-            android:id="@+id/right_image"/>
-    </LinearLayout>
 </RelativeLayout>
 </layout>

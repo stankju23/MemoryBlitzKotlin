@@ -13,7 +13,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.stanislavcavajda.memoryblitz.ViewModel.CardViewModel" />
+            type="com.example.stanislavcavajda.memoryblitz.ViewModel.CardListViewModel" />
 
     </data>
 

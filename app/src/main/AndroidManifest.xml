@@ -21,8 +21,8 @@
         <activity android:name=".GameTypeActivity" />
         <activity android:name=".SpeedGameSettingsActivity" />
         <activity android:name=".EndlessGameSettingsActivity" />
-        <activity android:name=".GameActivity" />
-        <activity android:name=".ProgressGameActivity"></activity>
+        <activity android:name=".ProgressGameActivity" />
+        <activity android:name=".ClassicGameActivity"></activity>
     </application>
 
 </manifest>

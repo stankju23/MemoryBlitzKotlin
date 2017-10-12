@@ -1,14 +1,14 @@
 package com.example.stanislavcavajda.memoryblitz.Data
 
-import android.support.v4.content.ContextCompat
-import com.example.stanislavcavajda.memoryblitz.Model.Card
+import com.example.stanislavcavajda.memoryblitz.ViewModel.CardViewModel
+import com.example.stanislavcavajda.memoryblitz.Model.WantedCardModel
 
 /**
  * Created by stanislavcavajda on 27.9.17.
  */
 object DataManager {
 
-    var graphicPacks = ArrayList<Card>()
+    var graphicPacks = ArrayList<CardViewModel>()
 
     var selectedGraphicPack: String = ""
 
@@ -23,4 +23,13 @@ object DataManager {
     var actualIndex: Int = 0
 
     var canClick: Boolean = false
+
+    var cardMatrix: Int = 0
+
+    var classicGameNumberOfCards: Int = 0
+
+    var numberOfWantedCards: Int = 0
+
+    var wantedCards: ArrayList<WantedCardModel> = ArrayList<WantedCardModel>()
+
 }
