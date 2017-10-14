@@ -28,22 +28,22 @@ class SpeedGameSettingsActivity : AppCompatActivity() {
             pocet--
         }
 
-        seconds.text = DataManager.seconds.toString()
+        seconds.text = DataManager.timeToMemorize.toString()
 
         var viewModel = CardListViewModel(DataManager.graphicPacks,this)
         binding.viewModel = viewModel
 
         plus_button.setOnClickListener {
-            if (DataManager.seconds < 10) {
-                DataManager.seconds++
-                seconds.text = DataManager.seconds.toString()
+            if (DataManager.timeToMemorize < 10) {
+                DataManager.timeToMemorize++
+                seconds.text = DataManager.timeToMemorize.toString()
             }
         }
 
         minus_button.setOnClickListener {
-            if (DataManager.seconds > 0) {
-                DataManager.seconds--
-                seconds.text = DataManager.seconds.toString()
+            if (DataManager.timeToMemorize > 0) {
+                DataManager.timeToMemorize--
+                seconds.text = DataManager.timeToMemorize.toString()
             }
         }
 
@@ -55,6 +55,19 @@ class SpeedGameSettingsActivity : AppCompatActivity() {
             var intent = Intent(this,ClassicGameActivity::class.java)
             startActivity(intent)
         })
+
+
+        when(DataManager.cardMatrix) {
+            0 ->  {card_matrix_to_remember_segmented_group.check(R.id.button31);DataManager.classicGameNumberOfCards = 4}
+            1 ->  {card_matrix_to_remember_segmented_group.check(R.id.button32);DataManager.classicGameNumberOfCards = 6}
+            2 ->  {card_matrix_to_remember_segmented_group.check(R.id.button33);DataManager.classicGameNumberOfCards = 9}
+        }
+
+        when(DataManager.numberOfWantedCards) {
+            0 ->  cards_to_remember_segmented_group.check(R.id.button21)
+            1 ->  cards_to_remember_segmented_group.check(R.id.button22)
+            2 ->  cards_to_remember_segmented_group.check(R.id.button23)
+        }
 
         card_matrix_to_remember_segmented_group.setOnCheckedChangeListener {
             radioGroup,

@@ -18,6 +18,7 @@ import com.example.stanislavcavajda.memoryblitz.SpeedGameSettingsActivity
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.os.Handler
+import android.provider.ContactsContract
 import android.support.v4.content.ContextCompat
 
 
@@ -42,11 +43,11 @@ class GamePlanItemViewModel: BaseObservable {
     fun itemClick(v: View) {
         var found: Boolean = false
         var deleteIndex: Int = 0
-        if (DataManager.typeSettingsActivity == Constants.PROGRESS_GAME) {
-            if (DataManager.canClick) {
+        if (DataManager.canClick) {
+            if (DataManager.typeSettingsActivity == Constants.PROGRESS_GAME) {
                 if (!clicked) {
                     if (name == DataManager.listProgressGameCards[DataManager.actualIndex]) {
-                        this.background.set(ContextCompat.getDrawable(context,R.drawable.card_background))
+                        this.background.set(ContextCompat.getDrawable(context, R.drawable.card_background))
                         clicked = true
                         DataManager.actualIndex++
                         notifyChange()
@@ -61,15 +62,14 @@ class GamePlanItemViewModel: BaseObservable {
                         context.startActivity(replyGame)
                     }
                 }
-            }
-        } else if (DataManager.typeSettingsActivity == Constants.CLASSIC_GAME) {
-            if (!clicked) {
-                clicked = true
-                var handler = Handler()
-                handler.postDelayed(Runnable {
-                    image.set(oldImage)
-                    background.set(ContextCompat.getDrawable(context,R.drawable.card_background))
-                },250)
+            } else if (DataManager.typeSettingsActivity == Constants.CLASSIC_GAME) {
+                if (!clicked) {
+                    clicked = true
+                    var handler = Handler()
+                    handler.postDelayed(Runnable {
+                        image.set(oldImage)
+                        background.set(ContextCompat.getDrawable(context, R.drawable.card_background))
+                    }, 250)
                     var i = 0
                     for (item in DataManager.wantedCards) {
                         if (item.name == name) {
@@ -79,24 +79,46 @@ class GamePlanItemViewModel: BaseObservable {
                         i++
                     }
                     notifyChange()
-                    if (found){
+                    if (found) {
                         DataManager.wantedCards.removeAt(deleteIndex)
                     } else {
-                        var intent = Intent(context, SpeedGameSettingsActivity::class.java)
-                        context.startActivity(intent)
-                        (context as Activity).overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
-                    }
-                if (DataManager.wantedCards.size == 0) {
+                        for (item in DataManager.classicGameGamePlan) {
+                            if (item.clicked == false) {
+                                item.clicked = true
+                                handler.postDelayed(Runnable {
+                                    item.image.set(item.oldImage)
+                                    item.background.set(ContextCompat.getDrawable(context, R.drawable.card_background))
+                                }, 250)
+                            }
+                        }
+                        notifyChange()
 
-                    var handler1 = Handler()
-                    handler1.postDelayed(Runnable {
-                        var intent = Intent(context, ClassicGameActivity::class.java)
-                        context.startActivity(intent)
-                        (context as Activity).overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
-                    },2000)
+                        if (DataManager.actualScore > DataManager.classicGameHighScore) {
+                            DataManager.classicGameHighScore = DataManager.actualScore
+                            DataManager.actualScore = 0
+                        }
+
+                        handler.postDelayed(Runnable {
+                            (context as Activity).finish()
+                            var intent = Intent(context,SpeedGameSettingsActivity::class.java)
+                            context.startActivity(intent)
+                            (context as Activity).overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
+
+                        },3000)
+                    }
+                    if (DataManager.wantedCards.size == 0) {
+                        DataManager.actualScore++
+                        var handler1 = Handler()
+                        handler1.postDelayed(Runnable {
+                            (context as Activity).finish()
+                            var intent = Intent(context, ClassicGameActivity::class.java)
+                            context.startActivity(intent)
+                            (context as Activity).overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
+                        }, 2000)
+
+                    }
 
                 }
-
             }
         }
     }

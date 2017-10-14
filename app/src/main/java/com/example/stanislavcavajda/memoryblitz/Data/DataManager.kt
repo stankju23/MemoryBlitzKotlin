@@ -2,6 +2,7 @@ package com.example.stanislavcavajda.memoryblitz.Data
 
 import com.example.stanislavcavajda.memoryblitz.ViewModel.CardViewModel
 import com.example.stanislavcavajda.memoryblitz.Model.WantedCardModel
+import com.example.stanislavcavajda.memoryblitz.ViewModel.GamePlanItemViewModel
 
 /**
  * Created by stanislavcavajda on 27.9.17.
@@ -12,7 +13,7 @@ object DataManager {
 
     var selectedGraphicPack: String = ""
 
-    var seconds = 0
+    var timeToMemorize = 0
 
     var typeSettingsActivity = 0
 
@@ -31,5 +32,11 @@ object DataManager {
     var numberOfWantedCards: Int = 0
 
     var wantedCards: ArrayList<WantedCardModel> = ArrayList<WantedCardModel>()
+
+    var classicGameGamePlan: ArrayList<GamePlanItemViewModel> = ArrayList()
+
+    var classicGameHighScore: Int = 0
+
+    var actualScore: Int = 0
 
 }

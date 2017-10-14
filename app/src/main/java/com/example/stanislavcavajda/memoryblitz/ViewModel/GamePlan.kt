@@ -4,6 +4,7 @@ import android.content.Context
 import android.databinding.BaseObservable
 import android.databinding.ObservableArrayList
 import android.os.Handler
+import com.example.stanislavcavajda.memoryblitz.Data.DataManager
 
 /**
  * Created by stanislavcavajda on 04/10/2017.
@@ -19,7 +20,7 @@ class GamePlan : BaseObservable {
         handler.postDelayed(Runnable {
             for (item in list) {
                 item.isAnimation.set(true)
-        } },2000)
+        } },DataManager.timeToMemorize * 1000L)
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.stanislavcavajda.memoryblitz
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.support.v4.content.ContextCompat
 import com.example.stanislavcavajda.memoryblitz.Data.DataManager
@@ -20,9 +21,12 @@ import com.example.stanislavcavajda.memoryblitz.databinding.ThreeCardsBinding
 import com.example.stanislavcavajda.memoryblitz.Model.WantedCardModel
 
 import android.view.View
+import com.example.stanislavcavajda.memoryblitz.ViewModel.TimerViewModel
 import com.example.stanislavcavajda.memoryblitz.ViewModel.WantedCardsListViewModel
 import java.util.*
 import kotlin.collections.ArrayList
+
+
 
 
 class ClassicGameActivity : AppCompatActivity() {
@@ -30,10 +34,31 @@ class ClassicGameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullScreen()
+        DataManager.classicGameGamePlan.clear()
 
         DataManager.wantedCards.clear()
+        DataManager.canClick = false
+
 
         var binding:ActivityClassicGame2x2Binding = DataBindingUtil.setContentView(this,R.layout.activity_classic_game_2x2)
+        var timerViewModel = TimerViewModel("0:0${DataManager.timeToMemorize}","MEMORIZE","${DataManager.actualScore}")
+        binding.viewModel = timerViewModel
+
+        var timer = object: CountDownTimer((DataManager.timeToMemorize + 2) * 1000L, 1000){
+
+            override fun onTick(millis: Long) {
+                if (millis/1000 == 1L) {
+                    timerViewModel.timer.set("0:00")
+                } else {
+                    timerViewModel.timer.set("0:0${(millis/1000 - 1).toString()}")
+                }
+            }
+            override fun onFinish() {
+            }
+        }
+        timer.start()
+
+
         when(DataManager.cardMatrix) {
             Constants.CLASSIC_GAME_2x2 -> {viewStub.layoutResource = R.layout.two_x_two}
             Constants.CLASSIC_GAME_2x3 -> {viewStub.layoutResource = R.layout.two_x_three}
@@ -54,26 +79,25 @@ class ClassicGameActivity : AppCompatActivity() {
 
         shuffleCardList(cardList)
 
-        var cards = ArrayList<GamePlanItemViewModel>()
         for(i in 0..DataManager.classicGameNumberOfCards - 1) {
             var resId = resources.getIdentifier("summer_${cardList.get(i).name}","drawable",packageName)
-            cards.add(GamePlanItemViewModel(cardList.get(i).name, ContextCompat.getDrawable(this, resId),ContextCompat.getDrawable(this, R.drawable.card_background), false, this))
+            DataManager.classicGameGamePlan.add(GamePlanItemViewModel(cardList.get(i).name, ContextCompat.getDrawable(this, resId),ContextCompat.getDrawable(this, R.drawable.card_background), false, this))
         }
 
         binding.viewStub.setOnInflateListener { viewStub,
                                                 view ->
             when(DataManager.cardMatrix) {
                 Constants.CLASSIC_GAME_2x2 -> {var viewStubBinding: TwoXTwoBinding = DataBindingUtil.bind(view)
-                                               ; viewStubBinding.viewModel = GamePlan(cards, this)}
+                                               ; viewStubBinding.viewModel = GamePlan(DataManager.classicGameGamePlan, this)}
                 Constants.CLASSIC_GAME_2x3 -> {var viewStubBinding: TwoXThreeBinding = DataBindingUtil.bind(view)
-                                               ; viewStubBinding.viewModel = GamePlan(cards, this)}
+                                               ; viewStubBinding.viewModel = GamePlan(DataManager.classicGameGamePlan, this)}
                 Constants.CLASSIC_GAME_3x3 -> {var viewStubBinding: ThreeXThreeBinding = DataBindingUtil.bind(view)
-                                               ; viewStubBinding.viewModel = GamePlan(cards, this)}
+                                               ; viewStubBinding.viewModel = GamePlan(DataManager.classicGameGamePlan, this)}
             }
 
         }
 
-        shuffleCardList(cards)
+        shuffleCardList(DataManager.classicGameGamePlan)
 
         for(i in 0..DataManager.numberOfWantedCards) {
             DataManager.wantedCards.add(i,WantedCardModel(cardList.get(i).name, ContextCompat.getDrawable(this, R.drawable.empty)))
@@ -97,13 +121,13 @@ class ClassicGameActivity : AppCompatActivity() {
                 var resId = resources.getIdentifier("summer_${cardList.get(i).name}","drawable",packageName)
                 DataManager.wantedCards[i].image.set(ContextCompat.getDrawable(this,resId))
             }
-        },2500)
+        },DataManager.timeToMemorize * 1000 + 500L)
 
         viewStub.inflate()
         viewStubWantedCards.inflate()
         var hanlder = Handler()
         hanlder.postDelayed(Runnable {
-            for (item in cards) {
+            for (item in DataManager.classicGameGamePlan) {
                 var handler1 = Handler()
                 handler1.postDelayed(Runnable {
                     item.oldImage = item.image.get()
@@ -111,7 +135,8 @@ class ClassicGameActivity : AppCompatActivity() {
                     item.image.set(ContextCompat.getDrawable(this, R.drawable.empty))
                 },250)
             }
-        },2000)
+            DataManager.canClick = true
+        },DataManager.timeToMemorize * 1000L)
     }
 
     fun setFullScreen() {
