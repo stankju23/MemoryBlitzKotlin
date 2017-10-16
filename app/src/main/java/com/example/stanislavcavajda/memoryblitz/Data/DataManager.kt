@@ -39,4 +39,6 @@ object DataManager {
 
     var actualScore: Int = 0
 
+    var pauseMillis: Long = 0
+
 }

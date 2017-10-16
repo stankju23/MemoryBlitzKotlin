@@ -15,12 +15,6 @@ class GamePlan : BaseObservable {
 
     constructor(itemViewModelList: ArrayList<GamePlanItemViewModel>, context: Context) {
         this.list.addAll(itemViewModelList)
-
-        var handler = Handler()
-        handler.postDelayed(Runnable {
-            for (item in list) {
-                item.isAnimation.set(true)
-        } },DataManager.timeToMemorize * 1000L)
     }
 
 }

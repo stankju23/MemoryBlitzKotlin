@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.support.v4.content.ContextCompat
+import android.view.Gravity
 import com.example.stanislavcavajda.memoryblitz.Data.DataManager
 import com.example.stanislavcavajda.memoryblitz.Data.Constants
 import com.example.stanislavcavajda.memoryblitz.ViewModel.GamePlan
@@ -23,6 +24,8 @@ import com.example.stanislavcavajda.memoryblitz.Model.WantedCardModel
 import android.view.View
 import com.example.stanislavcavajda.memoryblitz.ViewModel.TimerViewModel
 import com.example.stanislavcavajda.memoryblitz.ViewModel.WantedCardsListViewModel
+import com.mancj.slideup.SlideUp
+import com.mancj.slideup.SlideUpBuilder
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,6 +34,9 @@ import kotlin.collections.ArrayList
 
 class ClassicGameActivity : AppCompatActivity() {
     lateinit var viewModel: GamePlan
+    var waiting = true
+    var timer1:CountDownTimer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullScreen()
@@ -38,13 +44,14 @@ class ClassicGameActivity : AppCompatActivity() {
 
         DataManager.wantedCards.clear()
         DataManager.canClick = false
+        DataManager.pauseMillis = (DataManager.timeToMemorize + 2) * 1000L
 
 
         var binding:ActivityClassicGame2x2Binding = DataBindingUtil.setContentView(this,R.layout.activity_classic_game_2x2)
-        var timerViewModel = TimerViewModel("0:0${DataManager.timeToMemorize}","MEMORIZE","${DataManager.actualScore}")
+        var timerViewModel = TimerViewModel("0:0${DataManager.pauseMillis / 1000}","MEMORIZE","${DataManager.actualScore}")
         binding.viewModel = timerViewModel
 
-        var timer = object: CountDownTimer((DataManager.timeToMemorize + 2) * 1000L, 1000){
+        var timer = object: CountDownTimer(DataManager.pauseMillis, 1000){
 
             override fun onTick(millis: Long) {
                 if (millis/1000 == 1L) {
@@ -52,6 +59,7 @@ class ClassicGameActivity : AppCompatActivity() {
                 } else {
                     timerViewModel.timer.set("0:0${(millis/1000 - 1).toString()}")
                 }
+                DataManager.pauseMillis = millis
             }
             override fun onFinish() {
             }
@@ -115,13 +123,19 @@ class ClassicGameActivity : AppCompatActivity() {
             }
         }
 
+        var handler = Handler()
+        handler.postDelayed(Runnable {
+            for (item in DataManager.classicGameGamePlan) {
+                item.isAnimation.set(true)
+            } }, DataManager.pauseMillis - 2000)
+
         var handler2 = Handler()
         handler2.postDelayed(Runnable {
             for(i in 0..DataManager.wantedCards.size -1) {
                 var resId = resources.getIdentifier("summer_${cardList.get(i).name}","drawable",packageName)
                 DataManager.wantedCards[i].image.set(ContextCompat.getDrawable(this,resId))
             }
-        },DataManager.timeToMemorize * 1000 + 500L)
+        },DataManager.pauseMillis - 1500L)
 
         viewStub.inflate()
         viewStubWantedCards.inflate()
@@ -136,7 +150,75 @@ class ClassicGameActivity : AppCompatActivity() {
                 },250)
             }
             DataManager.canClick = true
-        },DataManager.timeToMemorize * 1000L)
+            waiting = false
+        },DataManager.pauseMillis - 2000L)
+
+        var slideUp = SlideUpBuilder(slide_view).withStartState(SlideUp.State.HIDDEN).withStartGravity(Gravity.BOTTOM).build()
+
+        button3.setOnClickListener {
+            slideUp.show();
+            button3.animate().alpha(0f).duration = 100
+            if (waiting) {
+                timer.cancel()
+                handler.removeMessages(0)
+                handler2.removeMessages(0)
+                hanlder.removeMessages(0)
+            }
+            if (timer1 != null) {
+                timer1?.cancel()
+                timer1 = null
+            }
+        }
+
+        nieco.setOnClickListener {
+            slideUp.hide()
+            button3.animate().alpha(1f).duration = 100
+
+            if (waiting) {
+                timer1 = object : CountDownTimer(DataManager.pauseMillis, 1000) {
+
+                    override fun onTick(millis: Long) {
+                        if (millis / 1000 == 1L) {
+                            timerViewModel.timer.set("0:00")
+                        } else {
+                            timerViewModel.timer.set("0:0${(millis / 1000 - 1).toString()}")
+                        }
+                        DataManager.pauseMillis = millis
+                    }
+
+                    override fun onFinish() {
+                    }
+                }
+                timer1?.start()
+
+                handler.postDelayed(Runnable {
+                    for (item in DataManager.classicGameGamePlan) {
+                        item.isAnimation.set(true)
+                    }
+                }, DataManager.pauseMillis - 2000)
+
+                handler2.postDelayed(Runnable {
+                    for (i in 0..DataManager.wantedCards.size - 1) {
+                        var resId = resources.getIdentifier("summer_${cardList.get(i).name}", "drawable", packageName)
+                        DataManager.wantedCards[i].image.set(ContextCompat.getDrawable(this, resId))
+                    }
+                }, DataManager.pauseMillis - 1500L)
+
+                hanlder.postDelayed(Runnable {
+                    for (item in DataManager.classicGameGamePlan) {
+                        var handler1 = Handler()
+                        handler1.postDelayed(Runnable {
+                            item.oldImage = item.image.get()
+                            item.background.set(ContextCompat.getDrawable(this, R.drawable.hide_card))
+                            item.image.set(ContextCompat.getDrawable(this, R.drawable.empty))
+                        }, 250)
+                    }
+                    DataManager.canClick = true
+                    waiting = false
+                }, DataManager.pauseMillis - 2000)
+            }
+
+        }
     }
 
     fun setFullScreen() {
@@ -161,6 +243,9 @@ class ClassicGameActivity : AppCompatActivity() {
             cardList[randomPosition] = tmp
         }
 
+    }
+
+    override fun onBackPressed() {
     }
 
 }

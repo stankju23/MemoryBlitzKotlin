@@ -54,6 +54,7 @@ class SpeedGameSettingsActivity : AppCompatActivity() {
         button2.setOnClickListener(View.OnClickListener {
             var intent = Intent(this,ClassicGameActivity::class.java)
             startActivity(intent)
+            this.finish()
         })
 
 
