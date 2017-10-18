@@ -25,9 +25,10 @@ class CardViewModel : BaseObservable{
     var title = ObservableField<String>()
     lateinit var recyclerView: RecyclerView
 
-    constructor(id: Int, context: Context,checked: Boolean,title: String){
-        this.image.set(ContextCompat.getDrawable(context,id))
+    constructor(name: String, context: Context,checked: Boolean,title: String){
         this.context = context
+        var id = context.resources.getIdentifier(name,"drawable",context.packageName)
+        this.image.set(ContextCompat.getDrawable(context,id))
         this.title.set(title)
         this.checked = checked
     }
@@ -43,6 +44,8 @@ class CardViewModel : BaseObservable{
         for (item in DataManager.graphicPacks) {
             item.checked = false
         }
+
+        DataManager.actualCheckedGraphicPack = title.get()
 
         recyclerView.adapter.notifyDataSetChanged()
 

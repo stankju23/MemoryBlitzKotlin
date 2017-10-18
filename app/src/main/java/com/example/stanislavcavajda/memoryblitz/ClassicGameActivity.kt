@@ -20,6 +20,7 @@ import com.example.stanislavcavajda.memoryblitz.databinding.OneCardBinding
 import com.example.stanislavcavajda.memoryblitz.databinding.TwoCardsBinding
 import com.example.stanislavcavajda.memoryblitz.databinding.ThreeCardsBinding
 import com.example.stanislavcavajda.memoryblitz.Model.WantedCardModel
+import com.example.stanislavcavajda.memoryblitz.Fragments.PauseFragment
 
 import android.view.View
 import com.example.stanislavcavajda.memoryblitz.ViewModel.TimerViewModel
@@ -81,15 +82,14 @@ class ClassicGameActivity : AppCompatActivity() {
         var cardList = ArrayList<GamePlanItemViewModel>()
         var i = 9
         for (i in 1..9) {
-            var resId = resources.getIdentifier("summer_$i","drawable",packageName)
+            var resId = resources.getIdentifier("${DataManager.actualCheckedGraphicPack}_$i","drawable",packageName)
             cardList.add(GamePlanItemViewModel(i, ContextCompat.getDrawable(this, resId), ContextCompat.getDrawable(this, R.drawable.card_background), false, this))
         }
 
         shuffleCardList(cardList)
 
         for(i in 0..DataManager.classicGameNumberOfCards - 1) {
-            var resId = resources.getIdentifier("summer_${cardList.get(i).name}","drawable",packageName)
-            DataManager.classicGameGamePlan.add(GamePlanItemViewModel(cardList.get(i).name, ContextCompat.getDrawable(this, resId),ContextCompat.getDrawable(this, R.drawable.card_background), false, this))
+            DataManager.classicGameGamePlan.add(cardList.get(i))
         }
 
         binding.viewStub.setOnInflateListener { viewStub,
@@ -132,7 +132,7 @@ class ClassicGameActivity : AppCompatActivity() {
         var handler2 = Handler()
         handler2.postDelayed(Runnable {
             for(i in 0..DataManager.wantedCards.size -1) {
-                var resId = resources.getIdentifier("summer_${cardList.get(i).name}","drawable",packageName)
+                var resId = resources.getIdentifier("${DataManager.actualCheckedGraphicPack}_${cardList.get(i).name}","drawable",packageName)
                 DataManager.wantedCards[i].image.set(ContextCompat.getDrawable(this,resId))
             }
         },DataManager.pauseMillis - 1500L)
@@ -157,7 +157,7 @@ class ClassicGameActivity : AppCompatActivity() {
 
         button3.setOnClickListener {
             slideUp.show();
-            button3.animate().alpha(0f).duration = 100
+            button3.hide()
             if (waiting) {
                 timer.cancel()
                 handler.removeMessages(0)
@@ -172,7 +172,7 @@ class ClassicGameActivity : AppCompatActivity() {
 
         nieco.setOnClickListener {
             slideUp.hide()
-            button3.animate().alpha(1f).duration = 100
+            button3.show()
 
             if (waiting) {
                 timer1 = object : CountDownTimer(DataManager.pauseMillis, 1000) {
@@ -199,7 +199,7 @@ class ClassicGameActivity : AppCompatActivity() {
 
                 handler2.postDelayed(Runnable {
                     for (i in 0..DataManager.wantedCards.size - 1) {
-                        var resId = resources.getIdentifier("summer_${cardList.get(i).name}", "drawable", packageName)
+                        var resId = resources.getIdentifier("${DataManager.actualCheckedGraphicPack}_${cardList.get(i).name}", "drawable", packageName)
                         DataManager.wantedCards[i].image.set(ContextCompat.getDrawable(this, resId))
                     }
                 }, DataManager.pauseMillis - 1500L)
@@ -219,6 +219,7 @@ class ClassicGameActivity : AppCompatActivity() {
             }
 
         }
+
     }
 
     fun setFullScreen() {

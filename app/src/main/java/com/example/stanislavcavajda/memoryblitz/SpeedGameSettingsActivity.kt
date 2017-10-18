@@ -21,11 +21,12 @@ class SpeedGameSettingsActivity : AppCompatActivity() {
         var binding:ActivitySpeedGameBinding = DataBindingUtil.setContentView(this,R.layout.activity_speed_game)
 
         DataManager.graphicPacks.clear()
-        var pocet = 9
-        while (pocet >= 1) {
-            var id = resources.getIdentifier("summer_$pocet", "drawable", packageName)
-            DataManager.graphicPacks.add(CardViewModel(id, this, false, "summer"))
-            pocet--
+        for (item in DataManager.graphicPacksNames) {
+            if (item == DataManager.actualCheckedGraphicPack) {
+                DataManager.graphicPacks.add(CardViewModel("${item}_1", this, true, item))
+            } else {
+                DataManager.graphicPacks.add(CardViewModel("${item}_1", this, false, item))
+            }
         }
 
         seconds.text = DataManager.timeToMemorize.toString()

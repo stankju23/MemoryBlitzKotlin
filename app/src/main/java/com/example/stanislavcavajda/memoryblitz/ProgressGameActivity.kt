@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
+import android.view.Gravity
 import android.view.View
 import com.example.stanislavcavajda.memoryblitz.Data.DataManager
 import com.example.stanislavcavajda.memoryblitz.ViewModel.GamePlanItemViewModel
@@ -13,6 +14,9 @@ import com.example.stanislavcavajda.memoryblitz.databinding.ActivityProgressGame
 import kotlinx.android.synthetic.main.activity_progress_game.*
 import java.util.*
 import android.widget.ImageView
+import com.mancj.slideup.SlideUp
+import com.mancj.slideup.SlideUpBuilder
+import kotlinx.android.synthetic.main.activity_classic_game_2x2.*
 
 
 class ProgressGameActivity : AppCompatActivity() {
@@ -44,11 +48,9 @@ class ProgressGameActivity : AppCompatActivity() {
         handler.postDelayed(Runnable { game_plan.animate().translationY(2000f).duration = 1000},2000)
 
 
-        var i = 9
-        while (i >= 1) {
-            var resId = resources.getIdentifier("summer_$i","drawable",packageName)
-            cardList.add(GamePlanItemViewModel(i, ContextCompat.getDrawable(this, resId),ContextCompat.getDrawable(this, R.drawable.card_background),false, this))
-            i--
+        for (i in 1..9) {
+            var resId = resources.getIdentifier("${DataManager.actualCheckedGraphicPack}_$i","drawable",packageName)
+            cardList.add(GamePlanItemViewModel(i, ContextCompat.getDrawable(this, resId), ContextCompat.getDrawable(this, R.drawable.card_background), false, this))
         }
 
         val rg : Random = Random()
@@ -70,15 +72,29 @@ class ProgressGameActivity : AppCompatActivity() {
 
 
         var viewModel = GamePlan(cardList,this)
+        var runnable: Runnable
 
         for (i in 0..DataManager.numberOfCards-1){
             seconds = seconds + 1750
-            handler.postDelayed(Runnable { moveCard("summer_${DataManager.listProgressGameCards.get(i)}") },seconds)
+            runnable = Runnable { moveCard("${DataManager.actualCheckedGraphicPack}_${DataManager.listProgressGameCards.get(i)}") }
+            handler.postDelayed(runnable,seconds)
         }
 
+        var slideUp = SlideUpBuilder(slide_view_progress).withStartState(SlideUp.State.HIDDEN).withStartGravity(Gravity.BOTTOM).build()
+
+        pause_btn.setOnClickListener {
+            slideUp.show()
+            pause_btn.hide()
+        }
+
+        resume_btn.setOnClickListener {
+            slideUp.hide()
+            pause_btn.show()
+        }
 
         handler.postDelayed(Runnable { game_plan.animate().translationY(0f).duration = 1000 }, seconds + 1500)
         handler.postDelayed(Runnable { DataManager.canClick = true },seconds)
+
         binding.viewModel = viewModel
         print(cardList)
 
@@ -106,7 +122,4 @@ class ProgressGameActivity : AppCompatActivity() {
 
         decor_View.systemUiVisibility = ui_Options
     }
-
-
-
 }

@@ -17,12 +17,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartActivity" />
-        <activity android:name=".GameTypeActivity" />
-        <activity android:name=".SpeedGameSettingsActivity" />
-        <activity android:name=".EndlessGameSettingsActivity" />
-        <activity android:name=".ProgressGameActivity" />
-        <activity android:name=".ClassicGameActivity"></activity>
+        <activity android:name=".StartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".GameTypeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SpeedGameSettingsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".EndlessGameSettingsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ProgressGameActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ClassicGameActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

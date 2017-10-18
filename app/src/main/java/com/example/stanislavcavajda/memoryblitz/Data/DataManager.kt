@@ -9,6 +9,8 @@ import com.example.stanislavcavajda.memoryblitz.ViewModel.GamePlanItemViewModel
  */
 object DataManager {
 
+    var graphicPacksNames = arrayListOf<String>("christmas", "family", "scenery", "space", "summer", "toys", "western")
+
     var graphicPacks = ArrayList<CardViewModel>()
 
     var selectedGraphicPack: String = ""
@@ -40,5 +42,7 @@ object DataManager {
     var actualScore: Int = 0
 
     var pauseMillis: Long = 0
+
+    var actualCheckedGraphicPack: String = "scenery"
 
 }
