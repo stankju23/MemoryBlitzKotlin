@@ -3,6 +3,7 @@ package com.example.stanislavcavajda.memoryblitz.Data
 import com.example.stanislavcavajda.memoryblitz.ViewModel.CardViewModel
 import com.example.stanislavcavajda.memoryblitz.Model.WantedCardModel
 import com.example.stanislavcavajda.memoryblitz.ViewModel.GamePlanItemViewModel
+import com.example.stanislavcavajda.memoryblitz.ViewModel.PointViewModel
 
 /**
  * Created by stanislavcavajda on 27.9.17.
@@ -44,5 +45,7 @@ object DataManager {
     var pauseMillis: Long = 0
 
     var actualCheckedGraphicPack: String = "scenery"
+
+    var pointsList = ArrayList<PointViewModel>()
 
 }

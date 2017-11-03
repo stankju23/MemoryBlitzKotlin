@@ -9,4 +9,6 @@
     <color name="text_color_menu">#E5E5E5</color>
     <color name="white">#ffffff</color>
     <color name="game_text_color">#AFAFAF</color>
+    <color name="correct">#7ED321</color>
+    <color name="incorrect">#D0021B</color>
 </resources>

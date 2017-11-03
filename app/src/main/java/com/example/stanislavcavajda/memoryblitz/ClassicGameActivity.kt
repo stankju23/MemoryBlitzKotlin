@@ -1,5 +1,6 @@
 package com.example.stanislavcavajda.memoryblitz
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -20,13 +21,13 @@ import com.example.stanislavcavajda.memoryblitz.databinding.OneCardBinding
 import com.example.stanislavcavajda.memoryblitz.databinding.TwoCardsBinding
 import com.example.stanislavcavajda.memoryblitz.databinding.ThreeCardsBinding
 import com.example.stanislavcavajda.memoryblitz.Model.WantedCardModel
-import com.example.stanislavcavajda.memoryblitz.Fragments.PauseFragment
 
 import android.view.View
 import com.example.stanislavcavajda.memoryblitz.ViewModel.TimerViewModel
 import com.example.stanislavcavajda.memoryblitz.ViewModel.WantedCardsListViewModel
 import com.mancj.slideup.SlideUp
 import com.mancj.slideup.SlideUpBuilder
+import kotlinx.android.synthetic.main.activity_progress_game.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -153,26 +154,8 @@ class ClassicGameActivity : AppCompatActivity() {
             waiting = false
         },DataManager.pauseMillis - 2000L)
 
-        var slideUp = SlideUpBuilder(slide_view).withStartState(SlideUp.State.HIDDEN).withStartGravity(Gravity.BOTTOM).build()
-
-        button3.setOnClickListener {
-            slideUp.show();
-            button3.hide()
-            if (waiting) {
-                timer.cancel()
-                handler.removeMessages(0)
-                handler2.removeMessages(0)
-                hanlder.removeMessages(0)
-            }
-            if (timer1 != null) {
-                timer1?.cancel()
-                timer1 = null
-            }
-        }
-
-        nieco.setOnClickListener {
-            slideUp.hide()
-            button3.show()
+        fun resumeTimer() {
+            pause.show()
 
             if (waiting) {
                 timer1 = object : CountDownTimer(DataManager.pauseMillis, 1000) {
@@ -208,7 +191,6 @@ class ClassicGameActivity : AppCompatActivity() {
                     for (item in DataManager.classicGameGamePlan) {
                         var handler1 = Handler()
                         handler1.postDelayed(Runnable {
-                            item.oldImage = item.image.get()
                             item.background.set(ContextCompat.getDrawable(this, R.drawable.hide_card))
                             item.image.set(ContextCompat.getDrawable(this, R.drawable.empty))
                         }, 250)
@@ -217,10 +199,62 @@ class ClassicGameActivity : AppCompatActivity() {
                     waiting = false
                 }, DataManager.pauseMillis - 2000)
             }
+        }
 
+
+        var slideUp = SlideUpBuilder(slide_view).withStartState(SlideUp.State.HIDDEN).
+                withListeners(SlideUp.Listener.Visibility {
+                    visibility -> if (visibility == View.GONE) {
+                        for (item in DataManager.classicGameGamePlan) {
+                            item.image.set(item.oldImage)
+                        }
+                        pause.show()
+                        resumeTimer()
+                    } else {
+                        for (item in DataManager.classicGameGamePlan) {
+                            item.image.set(ContextCompat.getDrawable(this, R.drawable.empty))
+                        }
+                    }
+                }  )
+                .withStartGravity(Gravity.BOTTOM).build()
+
+        pause.setOnClickListener {
+                slideUp.show();
+                pause.hide()
+                if (waiting) {
+                    timer.cancel()
+                    handler.removeMessages(0)
+                    handler2.removeMessages(0)
+                    hanlder.removeMessages(0)
+                }
+                if (timer1 != null) {
+                    timer1?.cancel()
+                    timer1 = null
+                }
+        }
+
+
+        resume.setOnClickListener {
+            slideUp.hide()
+            resumeTimer()
+        }
+
+        retry.setOnClickListener{
+            this.finish()
+            var intent = Intent(this,ClassicGameActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
+        }
+
+        end.setOnClickListener{
+            this.finish()
+            var intent = Intent(this,StartActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
         }
 
     }
+
 
     fun setFullScreen() {
         val decor_View = window.decorView
