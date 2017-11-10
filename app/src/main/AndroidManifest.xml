@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.stanislavcavajda.memoryblitz">
 
+    <uses-permission android:name="android.permission.SET_ALARM"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,6 +31,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ClassicGameActivity"
             android:screenOrientation="portrait"/>
+        <receiver android:name=".NotificationReceiver"/>
+
     </application>
 
 </manifest>

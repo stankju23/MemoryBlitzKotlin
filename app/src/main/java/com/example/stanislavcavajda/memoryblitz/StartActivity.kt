@@ -1,5 +1,8 @@
 package com.example.stanislavcavajda.memoryblitz
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +14,7 @@ import android.graphics.PorterDuff
 import android.view.View.OnTouchListener
 import android.view.animation.AlphaAnimation
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
+import java.util.*
 
 
 class StartActivity : AppCompatActivity() {
@@ -38,7 +42,22 @@ class StartActivity : AppCompatActivity() {
 
         settings_button.setOnClickListener {
             it.startAnimation(buttonClick)
+
+            var calendar = Calendar.getInstance()
+            calendar.set(Calendar.HOUR_OF_DAY, 14)
+            calendar.set(Calendar.MINUTE,20)
+            calendar.set(Calendar.SECOND,15)
+
+            var intent = Intent(applicationContext,NotificationReceiver::class.java)
+            var pendingIntent = PendingIntent.getBroadcast(applicationContext,100,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+            var alarmManager = (getSystemService(ALARM_SERVICE) as AlarmManager)
+
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.timeInMillis ,AlarmManager.INTERVAL_DAY,pendingIntent)
         }
+
+
+
+
 
     }
 
