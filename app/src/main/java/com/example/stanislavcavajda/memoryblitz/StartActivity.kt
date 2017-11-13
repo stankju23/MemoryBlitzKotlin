@@ -33,6 +33,9 @@ class StartActivity : AppCompatActivity() {
 
         score_button.setOnClickListener {
             it.startAnimation(buttonClick)
+            var intent = Intent(this,SettingsActivity::class.java)
+            this.finish()
+            startActivity(intent)
         }
 
         settings_button.setOnClickListener {

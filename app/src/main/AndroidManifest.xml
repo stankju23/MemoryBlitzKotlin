@@ -40,7 +40,8 @@
 
         <receiver android:name=".NotificationReceiver" />
 
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".NotificationActivity"></activity>
     </application>
 
 </manifest>
