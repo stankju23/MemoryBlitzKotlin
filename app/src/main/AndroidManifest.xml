@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.stanislavcavajda.memoryblitz">
 
-    <uses-permission android:name="android.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -19,20 +19,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".GameTypeActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SpeedGameSettingsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".EndlessGameSettingsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ProgressGameActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ClassicGameActivity"
-            android:screenOrientation="portrait"/>
-        <receiver android:name=".NotificationReceiver"/>
+        <activity
+            android:name=".StartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GameTypeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SpeedGameSettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EndlessGameSettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProgressGameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ClassicGameActivity"
+            android:screenOrientation="portrait" />
 
+        <receiver android:name=".NotificationReceiver" />
+
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

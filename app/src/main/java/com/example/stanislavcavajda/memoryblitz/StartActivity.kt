@@ -2,16 +2,11 @@ package com.example.stanislavcavajda.memoryblitz
 
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AnimationUtils
 import kotlinx.android.synthetic.main.activity_start.*
-import android.view.MotionEvent
-import android.graphics.PorterDuff
-import android.view.View.OnTouchListener
 import android.view.animation.AlphaAnimation
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import java.util.*

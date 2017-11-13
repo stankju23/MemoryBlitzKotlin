@@ -37,7 +37,7 @@ import kotlin.collections.ArrayList
 class ClassicGameActivity : AppCompatActivity() {
     lateinit var viewModel: GamePlan
     var waiting = true
-    var timer1:CountDownTimer? = null
+    var timer1: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,78 +49,103 @@ class ClassicGameActivity : AppCompatActivity() {
         DataManager.pauseMillis = (DataManager.timeToMemorize + 2) * 1000L
 
 
-        var binding:ActivityClassicGame2x2Binding = DataBindingUtil.setContentView(this,R.layout.activity_classic_game_2x2)
-        var timerViewModel = TimerViewModel("0:0${DataManager.pauseMillis / 1000}","MEMORIZE","${DataManager.actualScore}")
+        var binding: ActivityClassicGame2x2Binding = DataBindingUtil.setContentView(this, R.layout.activity_classic_game_2x2)
+        var timerViewModel = TimerViewModel("0:0${DataManager.pauseMillis / 1000}", "MEMORIZE", "${DataManager.actualScore}")
         binding.viewModel = timerViewModel
 
-        var timer = object: CountDownTimer(DataManager.pauseMillis, 1000){
+        var timer = object : CountDownTimer(DataManager.pauseMillis, 1000) {
 
             override fun onTick(millis: Long) {
-                if (millis/1000 == 1L) {
+                if (millis / 1000 == 1L) {
                     timerViewModel.timer.set("0:00")
                 } else {
-                    timerViewModel.timer.set("0:0${(millis/1000 - 1).toString()}")
+                    timerViewModel.timer.set("0:0${(millis / 1000 - 1).toString()}")
                 }
                 DataManager.pauseMillis = millis
             }
+
             override fun onFinish() {
             }
         }
         timer.start()
 
 
-        when(DataManager.cardMatrix) {
-            Constants.CLASSIC_GAME_2x2 -> {viewStub.layoutResource = R.layout.two_x_two}
-            Constants.CLASSIC_GAME_2x3 -> {viewStub.layoutResource = R.layout.two_x_three}
-            Constants.CLASSIC_GAME_3x3 -> {viewStub.layoutResource = R.layout.three_x_three}
+        when (DataManager.cardMatrix) {
+            Constants.CLASSIC_GAME_2x2 -> {
+                viewStub.layoutResource = R.layout.two_x_two
+            }
+            Constants.CLASSIC_GAME_2x3 -> {
+                viewStub.layoutResource = R.layout.two_x_three
+            }
+            Constants.CLASSIC_GAME_3x3 -> {
+                viewStub.layoutResource = R.layout.three_x_three
+            }
         }
-        when(DataManager.numberOfWantedCards) {
-            Constants.WANTED_CARDS_ONE -> {viewStubWantedCards.layoutResource = R.layout.one_card}
-            Constants.WANTED_CARDS_TWO -> {viewStubWantedCards.layoutResource = R.layout.two_cards}
-            Constants.WANTED_CARDS_THREE -> {viewStubWantedCards.layoutResource = R.layout.three_cards}
+        when (DataManager.numberOfWantedCards) {
+            Constants.WANTED_CARDS_ONE -> {
+                viewStubWantedCards.layoutResource = R.layout.one_card
+            }
+            Constants.WANTED_CARDS_TWO -> {
+                viewStubWantedCards.layoutResource = R.layout.two_cards
+            }
+            Constants.WANTED_CARDS_THREE -> {
+                viewStubWantedCards.layoutResource = R.layout.three_cards
+            }
         }
 
         var cardList = ArrayList<GamePlanItemViewModel>()
         var i = 9
         for (i in 1..9) {
-            var resId = resources.getIdentifier("${DataManager.actualCheckedGraphicPack}_$i","drawable",packageName)
+            var resId = resources.getIdentifier("${DataManager.actualCheckedGraphicPack}_$i", "drawable", packageName)
             cardList.add(GamePlanItemViewModel(i, ContextCompat.getDrawable(this, resId), ContextCompat.getDrawable(this, R.drawable.card_background), false, this))
         }
 
         shuffleCardList(cardList)
 
-        for(i in 0..DataManager.classicGameNumberOfCards - 1) {
+        for (i in 0..DataManager.classicGameNumberOfCards - 1) {
             DataManager.classicGameGamePlan.add(cardList.get(i))
         }
 
         binding.viewStub.setOnInflateListener { viewStub,
                                                 view ->
-            when(DataManager.cardMatrix) {
-                Constants.CLASSIC_GAME_2x2 -> {var viewStubBinding: TwoXTwoBinding = DataBindingUtil.bind(view)
-                                               ; viewStubBinding.viewModel = GamePlan(DataManager.classicGameGamePlan, this)}
-                Constants.CLASSIC_GAME_2x3 -> {var viewStubBinding: TwoXThreeBinding = DataBindingUtil.bind(view)
-                                               ; viewStubBinding.viewModel = GamePlan(DataManager.classicGameGamePlan, this)}
-                Constants.CLASSIC_GAME_3x3 -> {var viewStubBinding: ThreeXThreeBinding = DataBindingUtil.bind(view)
-                                               ; viewStubBinding.viewModel = GamePlan(DataManager.classicGameGamePlan, this)}
+            when (DataManager.cardMatrix) {
+                Constants.CLASSIC_GAME_2x2 -> {
+                    var viewStubBinding: TwoXTwoBinding = DataBindingUtil.bind(view)
+                    ; viewStubBinding.viewModel = GamePlan(DataManager.classicGameGamePlan, this)
+                }
+                Constants.CLASSIC_GAME_2x3 -> {
+                    var viewStubBinding: TwoXThreeBinding = DataBindingUtil.bind(view)
+                    ; viewStubBinding.viewModel = GamePlan(DataManager.classicGameGamePlan, this)
+                }
+                Constants.CLASSIC_GAME_3x3 -> {
+                    var viewStubBinding: ThreeXThreeBinding = DataBindingUtil.bind(view)
+                    ; viewStubBinding.viewModel = GamePlan(DataManager.classicGameGamePlan, this)
+                }
             }
 
         }
 
         shuffleCardList(DataManager.classicGameGamePlan)
 
-        for(i in 0..DataManager.numberOfWantedCards) {
-            DataManager.wantedCards.add(i,WantedCardModel(cardList.get(i).name, ContextCompat.getDrawable(this, R.drawable.empty)))
+        for (i in 0..DataManager.numberOfWantedCards) {
+            DataManager.wantedCards.add(i, WantedCardModel(cardList.get(i).name, ContextCompat.getDrawable(this, R.drawable.empty)))
         }
 
         binding.viewStubWantedCards.setOnInflateListener { viewStub,
                                                            view ->
-            when(DataManager.numberOfWantedCards) {
-                Constants.WANTED_CARDS_ONE -> {var viewStubBinding: OneCardBinding = DataBindingUtil.bind(view)
-                                               ; viewStubBinding.viewModel = WantedCardsListViewModel(DataManager.wantedCards)}
-                Constants.WANTED_CARDS_TWO -> {var viewStubBinding: TwoCardsBinding = DataBindingUtil.bind(view)
-                                               ; viewStubBinding.viewModel = WantedCardsListViewModel(DataManager.wantedCards)}
-                Constants.WANTED_CARDS_THREE -> {var viewStubBinding: ThreeCardsBinding = DataBindingUtil.bind(view)
-                                               ; viewStubBinding.viewModel = WantedCardsListViewModel(DataManager.wantedCards)}
+            when (DataManager.numberOfWantedCards) {
+                Constants.WANTED_CARDS_ONE -> {
+                    var viewStubBinding: OneCardBinding = DataBindingUtil.bind(view)
+                    ; viewStubBinding.viewModel = WantedCardsListViewModel(DataManager.wantedCards)
+                }
+                Constants.WANTED_CARDS_TWO -> {
+                    var viewStubBinding: TwoCardsBinding = DataBindingUtil.bind(view)
+                    ; viewStubBinding.viewModel = WantedCardsListViewModel(DataManager.wantedCards)
+                }
+                Constants.WANTED_CARDS_THREE -> {
+                    var viewStubBinding: ThreeCardsBinding = DataBindingUtil.bind(view)
+                    ; viewStubBinding.viewModel = WantedCardsListViewModel(DataManager.wantedCards)
+                }
             }
         }
 
@@ -128,15 +153,16 @@ class ClassicGameActivity : AppCompatActivity() {
         handler.postDelayed(Runnable {
             for (item in DataManager.classicGameGamePlan) {
                 item.isAnimation.set(true)
-            } }, DataManager.pauseMillis - 2000)
+            }
+        }, DataManager.pauseMillis - 2000)
 
         var handler2 = Handler()
         handler2.postDelayed(Runnable {
-            for(i in 0..DataManager.wantedCards.size -1) {
-                var resId = resources.getIdentifier("${DataManager.actualCheckedGraphicPack}_${cardList.get(i).name}","drawable",packageName)
-                DataManager.wantedCards[i].image.set(ContextCompat.getDrawable(this,resId))
+            for (i in 0..DataManager.wantedCards.size - 1) {
+                var resId = resources.getIdentifier("${DataManager.actualCheckedGraphicPack}_${cardList.get(i).name}", "drawable", packageName)
+                DataManager.wantedCards[i].image.set(ContextCompat.getDrawable(this, resId))
             }
-        },DataManager.pauseMillis - 1500L)
+        }, DataManager.pauseMillis - 1500L)
 
         viewStub.inflate()
         viewStubWantedCards.inflate()
@@ -148,11 +174,11 @@ class ClassicGameActivity : AppCompatActivity() {
                     item.oldImage = item.image.get()
                     item.background.set(ContextCompat.getDrawable(this, R.drawable.hide_card))
                     item.image.set(ContextCompat.getDrawable(this, R.drawable.empty))
-                },250)
+                }, 250)
             }
             DataManager.canClick = true
             waiting = false
-        },DataManager.pauseMillis - 2000L)
+        }, DataManager.pauseMillis - 2000L)
 
         fun resumeTimer() {
             pause.show()
@@ -171,6 +197,7 @@ class ClassicGameActivity : AppCompatActivity() {
 
                     override fun onFinish() {
                     }
+
                 }
                 timer1?.start()
 
@@ -203,52 +230,55 @@ class ClassicGameActivity : AppCompatActivity() {
 
 
         var slideUp = SlideUpBuilder(slide_view).withStartState(SlideUp.State.HIDDEN).
-                withListeners(SlideUp.Listener.Visibility {
-                    visibility -> if (visibility == View.GONE) {
-                        for (item in DataManager.classicGameGamePlan) {
-                            item.image.set(item.oldImage)
+                withListeners(SlideUp.Listener.Visibility { visibility ->
+                    if (visibility == View.GONE) {
+                        if(waiting) {
+                            for (item in DataManager.classicGameGamePlan) {
+                                item.image.set(item.oldImage)
+                            }
                         }
                         pause.show()
-                        resumeTimer()
+                        if(waiting) {
+                            resumeTimer()
+                        }
                     } else {
                         for (item in DataManager.classicGameGamePlan) {
                             item.image.set(ContextCompat.getDrawable(this, R.drawable.empty))
                         }
                     }
-                }  )
+                })
                 .withStartGravity(Gravity.BOTTOM).build()
 
         pause.setOnClickListener {
-                slideUp.show();
-                pause.hide()
-                if (waiting) {
-                    timer.cancel()
-                    handler.removeMessages(0)
-                    handler2.removeMessages(0)
-                    hanlder.removeMessages(0)
-                }
-                if (timer1 != null) {
-                    timer1?.cancel()
-                    timer1 = null
-                }
+            slideUp.show();
+            pause.hide()
+            if (waiting) {
+                timer.cancel()
+                handler.removeMessages(0)
+                handler2.removeMessages(0)
+                hanlder.removeMessages(0)
+            }
+            if (timer1 != null) {
+                timer1?.cancel()
+                timer1 = null
+            }
         }
 
 
         resume.setOnClickListener {
             slideUp.hide()
-            resumeTimer()
         }
 
-        retry.setOnClickListener{
+        retry.setOnClickListener {
             this.finish()
-            var intent = Intent(this,ClassicGameActivity::class.java)
+            var intent = Intent(this, ClassicGameActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
         }
 
-        end.setOnClickListener{
+        end.setOnClickListener {
             this.finish()
-            var intent = Intent(this,StartActivity::class.java)
+            var intent = Intent(this, StartActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
         }
@@ -269,11 +299,11 @@ class ClassicGameActivity : AppCompatActivity() {
         decor_View.systemUiVisibility = ui_Options
     }
 
-    fun shuffleCardList(cardList:ArrayList<GamePlanItemViewModel>) {
-        val rg : Random = Random()
+    fun shuffleCardList(cardList: ArrayList<GamePlanItemViewModel>) {
+        val rg: Random = Random()
         for (i in 0..cardList.size - 1) {
             val randomPosition = rg.nextInt(cardList.size)
-            val tmp : GamePlanItemViewModel = cardList[i]
+            val tmp: GamePlanItemViewModel = cardList[i]
             cardList[i] = cardList[randomPosition]
             cardList[randomPosition] = tmp
         }
