@@ -99,7 +99,6 @@
             app:wheel_indicator_size="1dp"
             app:wheel_visible_item_count="5"
             app:wheel_item_text_color="#4E4E4E"
-            app:wheel_curved="true"
             >
 
         </com.aigestudio.wheelpicker.WheelPicker>

@@ -32,25 +32,13 @@ class StartActivity : AppCompatActivity() {
         OverScrollDecoratorHelper.setUpStaticOverScroll(main_layout,OverScrollDecoratorHelper.ORIENTATION_VERTICAL)
 
         score_button.setOnClickListener {
-            it.startAnimation(buttonClick)
-            var intent = Intent(this,SettingsActivity::class.java)
-            this.finish()
-            startActivity(intent)
+
         }
 
         settings_button.setOnClickListener {
             it.startAnimation(buttonClick)
-
-            var calendar = Calendar.getInstance()
-            calendar.set(Calendar.HOUR_OF_DAY, 14)
-            calendar.set(Calendar.MINUTE,20)
-            calendar.set(Calendar.SECOND,15)
-
-            var intent = Intent(applicationContext,NotificationReceiver::class.java)
-            var pendingIntent = PendingIntent.getBroadcast(applicationContext,100,intent,PendingIntent.FLAG_UPDATE_CURRENT)
-            var alarmManager = (getSystemService(ALARM_SERVICE) as AlarmManager)
-
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.timeInMillis ,AlarmManager.INTERVAL_DAY,pendingIntent)
+            var intent = Intent(this,SettingsActivity::class.java)
+            startActivity(intent)
         }
 
 

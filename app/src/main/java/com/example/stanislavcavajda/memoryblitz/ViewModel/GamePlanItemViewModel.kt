@@ -57,6 +57,7 @@ class GamePlanItemViewModel: BaseObservable {
                         DataManager.actualIndex++
                         notifyChange()
                     } else {
+                        DataManager.canClick = false
                         while (DataManager.actualIndex <= DataManager.pointsList.size-1) {
                             DataManager.pointsList.get(DataManager.actualIndex).correct.set(0)
                             DataManager.actualIndex++
@@ -76,7 +77,8 @@ class GamePlanItemViewModel: BaseObservable {
                         },1500)
                     }
 
-//                    if (DataManager.actualIndex == DataManager.numberOfCards) {
+                    if (DataManager.actualIndex == DataManager.numberOfCards) {
+                        DataManager.canClick = false
 //                        var fab = (context as Activity).findViewById<FloatingActionButton>(R.id.pause_btn)
 //                        fab.hide()
 //                        var handler = Handler()
@@ -86,7 +88,7 @@ class GamePlanItemViewModel: BaseObservable {
 //                            context.startActivity(replyGame)
 //                        },1500)
 //
-//                    }
+                    }
                 }
             } else if (DataManager.typeSettingsActivity == Constants.CLASSIC_GAME) {
                 if (!clicked) {
@@ -108,6 +110,7 @@ class GamePlanItemViewModel: BaseObservable {
                     if (found) {
                         DataManager.wantedCards.removeAt(deleteIndex)
                     } else {
+                        DataManager.canClick = false
                         for (item in DataManager.classicGameGamePlan) {
                             if (item.clicked == false) {
                                 item.clicked = true
@@ -136,6 +139,7 @@ class GamePlanItemViewModel: BaseObservable {
                         },3000)
                     }
                     if (DataManager.wantedCards.size == 0) {
+                        DataManager.canClick = false
                         DataManager.actualScore++
                         var fab = (context as Activity).findViewById<FloatingActionButton>(R.id.pause)
                         fab.hide()

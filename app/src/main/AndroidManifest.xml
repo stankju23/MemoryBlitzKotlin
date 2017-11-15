@@ -4,6 +4,7 @@
     package="com.example.stanislavcavajda.memoryblitz">
 
     <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:allowBackup="true"
@@ -38,7 +39,11 @@
             android:name=".ClassicGameActivity"
             android:screenOrientation="portrait" />
 
-        <receiver android:name=".NotificationReceiver" />
+        <receiver android:name=".NotificationReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
 
         <activity android:name=".SettingsActivity" />
         <activity android:name=".NotificationActivity"></activity>

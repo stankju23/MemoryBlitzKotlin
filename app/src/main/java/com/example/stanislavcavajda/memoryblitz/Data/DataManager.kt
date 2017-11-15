@@ -48,4 +48,10 @@ object DataManager {
 
     var pointsList = ArrayList<PointViewModel>()
 
+    var notificationsOn = false
+
+    var notificationsTimeHour: Int = 0
+
+    var notificationsTimeMinute: Int = 0
+
 }
