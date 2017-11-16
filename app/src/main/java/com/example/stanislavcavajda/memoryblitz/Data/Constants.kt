@@ -13,6 +13,7 @@ object Constants {
     const val WANTED_CARDS_ONE = 0
     const val WANTED_CARDS_TWO = 1
     const val WANTED_CARDS_THREE = 2
+    const val NOTIFICATION_STATUS = "notificationStatus"
 
 
 }
