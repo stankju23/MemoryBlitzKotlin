@@ -23,6 +23,7 @@ import android.provider.ContactsContract
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
+import android.widget.FrameLayout
 
 
 class GamePlanItemViewModel: BaseObservable {
@@ -35,7 +36,7 @@ class GamePlanItemViewModel: BaseObservable {
     var isAnimation = ObservableBoolean(false)
     var background: ObservableField<Drawable> = ObservableField()
 
-    constructor(name: Int, image:Drawable,background:Drawable,clicked: Boolean,context: Context) {
+    constructor(name: Int, image: Drawable, background: Drawable, clicked: Boolean, context: Context) {
         this.name = name
         this.oldImage = image
         this.image.set(image)
@@ -56,12 +57,26 @@ class GamePlanItemViewModel: BaseObservable {
                         DataManager.pointsList.get(DataManager.actualIndex).correct.set(1)
                         DataManager.actualIndex++
                         notifyChange()
+                        if (DataManager.actualIndex == DataManager.numberOfCards) {
+                            DataManager.canClick = false
+                            var fab = (context as Activity).findViewById<FloatingActionButton>(R.id.pause_btn)
+                            fab.hide()
+                            var handler = Handler()
+                            handler.postDelayed(Runnable {
+                                (context as Activity).finish()
+                                var replyGame = Intent(context, ProgressGameActivity::class.java)
+                                context.startActivity(replyGame)
+                            },1500)
+
+                        }
                     } else {
+                        var endGamePanel = (context as Activity).findViewById<FrameLayout>(R.id.end_slide_menu)
                         DataManager.canClick = false
-                        while (DataManager.actualIndex <= DataManager.pointsList.size-1) {
+                        while (DataManager.actualIndex <= DataManager.pointsList.size - 1) {
                             DataManager.pointsList.get(DataManager.actualIndex).correct.set(0)
                             DataManager.actualIndex++
                         }
+
                         notifyChange()
 
                         var fab = (context as Activity).findViewById<FloatingActionButton>(R.id.pause_btn)
@@ -69,26 +84,15 @@ class GamePlanItemViewModel: BaseObservable {
 
                         var handler = Handler()
                         handler.postDelayed(Runnable {
+                            endGamePanel.animate().translationY(DataManager.endGameElementPosition.get(1)).duration = 500
                             var wantedCards = (context as Activity).findViewById<ConstraintLayout>(R.id.wantedCards)
                             wantedCards.alpha = 1f
                             var gamePlan = (context as Activity).findViewById<ConstraintLayout>(R.id.game_plan)
                             gamePlan.animate().translationY(2000f).duration = 1500
-                            fab.show()
-                        },1500)
+                        }, 700)
                     }
 
-                    if (DataManager.actualIndex == DataManager.numberOfCards) {
-                        DataManager.canClick = false
-//                        var fab = (context as Activity).findViewById<FloatingActionButton>(R.id.pause_btn)
-//                        fab.hide()
-//                        var handler = Handler()
-//                        handler.postDelayed(Runnable {
-//                            (context as Activity).finish()
-//                            var replyGame = Intent(context, ProgressGameActivity::class.java)
-//                            context.startActivity(replyGame)
-//                        },1500)
-//
-                    }
+
                 }
             } else if (DataManager.typeSettingsActivity == Constants.CLASSIC_GAME) {
                 if (!clicked) {
@@ -110,6 +114,8 @@ class GamePlanItemViewModel: BaseObservable {
                     if (found) {
                         DataManager.wantedCards.removeAt(deleteIndex)
                     } else {
+                        var pause = (context as Activity).findViewById<FloatingActionButton>(R.id.pause)
+                        pause.hide()
                         DataManager.canClick = false
                         for (item in DataManager.classicGameGamePlan) {
                             if (item.clicked == false) {
@@ -121,22 +127,18 @@ class GamePlanItemViewModel: BaseObservable {
                             }
                         }
                         notifyChange()
-
                         if (DataManager.actualScore > DataManager.classicGameHighScore) {
                             DataManager.classicGameHighScore = DataManager.actualScore
                             DataManager.actualScore = 0
-
                         }
 
                         handler.postDelayed(Runnable {
-                            var fab = (context as Activity).findViewById<FloatingActionButton>(R.id.pause)
-                            fab.hide()
                             (context as Activity).finish()
-                            var intent = Intent(context,SpeedGameSettingsActivity::class.java)
+                            var intent = Intent(context, GameTypeActivity::class.java)
                             context.startActivity(intent)
                             (context as Activity).overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
 
-                        },3000)
+                        }, 3000)
                     }
                     if (DataManager.wantedCards.size == 0) {
                         DataManager.canClick = false
@@ -150,9 +152,7 @@ class GamePlanItemViewModel: BaseObservable {
                             context.startActivity(intent)
                             (context as Activity).overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
                         }, 2000)
-
                     }
-
                 }
             }
         }

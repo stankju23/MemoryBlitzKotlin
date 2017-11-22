@@ -20,6 +20,7 @@ class GameTypeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_game_type)
 
         speed_game.setOnClickListener {
+            this.finish()
             DataManager.typeSettingsActivity = Constants.CLASSIC_GAME
             it.startAnimation(buttonClick)
             var intent = Intent(this, SpeedGameSettingsActivity::class.java)
@@ -28,6 +29,7 @@ class GameTypeActivity : AppCompatActivity() {
         }
 
         endless_game.setOnClickListener {
+            this.finish()
             DataManager.typeSettingsActivity = Constants.PROGRESS_GAME
             it.startAnimation(buttonClick)
             var intent = Intent(this, EndlessGameSettingsActivity::class.java)

@@ -1,324 +1,333 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    
+
     <data>
-        <import type="com.example.stanislavcavajda.memoryblitz.R"/>
+
+        <import type="com.example.stanislavcavajda.memoryblitz.R" />
+
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+
         <import type="android.support.v7.widget.LinearLayoutManager" />
 
-        <variable name="viewModel" type="com.example.stanislavcavajda.memoryblitz.ViewModel.GamePlan"/>
-        <variable name="pointListViewModel" type="com.example.stanislavcavajda.memoryblitz.ViewModel.PointListViewModel"/>
-        <variable name="wantedCardListViewModel" type="com.example.stanislavcavajda.memoryblitz.ViewModel.ProgressGameCardListViewModel"/>
+        <variable
+            name="viewModel"
+            type="com.example.stanislavcavajda.memoryblitz.ViewModel.GamePlan" />
+
+        <variable
+            name="pointListViewModel"
+            type="com.example.stanislavcavajda.memoryblitz.ViewModel.PointListViewModel" />
+
+        <variable
+            name="wantedCardListViewModel"
+            type="com.example.stanislavcavajda.memoryblitz.ViewModel.ProgressGameCardListViewModel" />
     </data>
 
-<RelativeLayout
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:id="@+id/main_plan_layout"
-    >
-
-
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
+        android:id="@+id/main_plan_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/screen_background"
-        tools:context="com.example.stanislavcavajda.memoryblitz.ProgressGameActivity">
+        android:layout_height="match_parent">
 
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/wantedCards"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:alpha="0"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout2">
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never"
-                android:layout_marginBottom="80dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="80dp"
-                app:itemBinding="@{wantedCardListViewModel.itemBinding}"
-                app:items="@{wantedCardListViewModel.list}"
-                app:layoutManager="@{LayoutManagers.grid(5)}"
-                android:elevation="0dp">
-
-            </android.support.v7.widget.RecyclerView>
-
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/game_plan"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/card_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/screen_background"
+            tools:context="com.example.stanislavcavajda.memoryblitz.ProgressGameActivity">
 
 
-            <ImageView
-                android:id="@+id/image2"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/wantedCards"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:alpha="@{(viewModel.list.get(1).clicked) ? 0.5f : 1f}"
-                android:background="@drawable/mini_card_background"
-                android:elevation="5dp"
-                android:onClick="@{viewModel.list.get(1).itemClick}"
-                android:padding="20dp"
-                android:src="@{viewModel.list.get(1).image}"
-                app:layout_constraintBottom_toBottomOf="@+id/image3"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@+id/image3"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/image1"
-                app:layout_constraintTop_toTopOf="@+id/image3" />
-
-            <ImageView
-                android:id="@+id/image1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:alpha="@{(viewModel.list.get(0).clicked) ? 0.5f : 1f}"
-                android:background="@drawable/mini_card_background"
-                android:elevation="5dp"
-                android:onClick="@{viewModel.list.get(0).itemClick}"
-                android:padding="20dp"
-                android:src="@{viewModel.list.get(0).image}"
-                app:layout_constraintBottom_toBottomOf="@+id/image2"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@+id/image2"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/image2" />
-
-            <ImageView
-                android:id="@+id/image3"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                android:alpha="@{(viewModel.list.get(2).clicked) ? 0.5f : 1f}"
-                android:background="@drawable/mini_card_background"
-                android:elevation="5dp"
-                android:onClick="@{viewModel.list.get(2).itemClick}"
-                android:padding="20dp"
-                android:src="@{viewModel.list.get(2).image}"
+                android:alpha="0"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/image2"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/image4"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                android:alpha="@{(viewModel.list.get(3).clicked) ? 0.5f : 1f}"
-                android:background="@drawable/mini_card_background"
-                android:elevation="5dp"
-                android:onClick="@{viewModel.list.get(3).itemClick}"
-                android:padding="20dp"
-                android:src="@{viewModel.list.get(3).image}"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@+id/image5"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image1" />
+                app:layout_constraintTop_toBottomOf="@id/linearLayout2">
 
-            <ImageView
-                android:id="@+id/image5"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:alpha="@{(viewModel.list.get(4).clicked) ? 0.5f : 1f}"
-                android:background="@drawable/mini_card_background"
-                android:elevation="5dp"
-                android:onClick="@{viewModel.list.get(4).itemClick}"
-                android:padding="20dp"
-                android:src="@{viewModel.list.get(4).image}"
-                app:layout_constraintBottom_toBottomOf="@+id/image4"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@+id/image6"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/image4"
-                app:layout_constraintTop_toTopOf="@+id/image4" />
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="80dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="80dp"
+                    android:elevation="0dp"
+                    android:overScrollMode="never"
+                    app:itemBinding="@{wantedCardListViewModel.itemBinding}"
+                    app:items="@{wantedCardListViewModel.list}"
+                    app:layoutManager="@{LayoutManagers.grid(5)}">
 
-            <ImageView
-                android:id="@+id/image6"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:alpha="@{(viewModel.list.get(5).clicked) ? 0.5f : 1f}"
-                android:background="@drawable/mini_card_background"
-                android:elevation="5dp"
-                android:onClick="@{viewModel.list.get(5).itemClick}"
-                android:padding="20dp"
-                android:src="@{viewModel.list.get(5).image}"
-                app:layout_constraintBottom_toBottomOf="@+id/image5"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/image5"
-                app:layout_constraintTop_toTopOf="@+id/image5" />
+                </android.support.v7.widget.RecyclerView>
 
-            <ImageView
-                android:id="@+id/image7"
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/game_plan"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:alpha="@{(viewModel.list.get(6).clicked) ? 0.5f : 1f}"
-                android:background="@drawable/mini_card_background"
-                android:elevation="5dp"
-                android:onClick="@{viewModel.list.get(6).itemClick}"
-                android:padding="20dp"
-                android:src="@{viewModel.list.get(6).image}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@+id/image8"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image4" />
-
-            <ImageView
-                android:id="@+id/image8"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:alpha="@{(viewModel.list.get(7).clicked) ? 0.5f : 1f}"
-                android:background="@drawable/mini_card_background"
-                android:elevation="5dp"
-                android:onClick="@{viewModel.list.get(7).itemClick}"
-                android:padding="20dp"
-                android:src="@{viewModel.list.get(7).image}"
-                app:layout_constraintBottom_toBottomOf="@+id/image7"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@+id/image9"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/image7"
-                app:layout_constraintTop_toTopOf="@+id/image7" />
-
-            <ImageView
-                android:id="@+id/image9"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:alpha="@{(viewModel.list.get(8).clicked) ? 0.5f : 1f}"
-                android:background="@drawable/mini_card_background"
-                android:elevation="5dp"
-                android:onClick="@{viewModel.list.get(8).itemClick}"
-                android:padding="20dp"
-                android:src="@{viewModel.list.get(8).image}"
-                app:layout_constraintBottom_toBottomOf="@+id/image8"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/card_background"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/image8"
-                app:layout_constraintTop_toTopOf="@+id/image8" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
-        </android.support.constraint.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="@{(viewModel.list.get(1).clicked) ? 0.5f : 1f}"
+                    android:background="@drawable/mini_card_background"
+                    android:elevation="5dp"
+                    android:onClick="@{viewModel.list.get(1).itemClick}"
+                    android:padding="20dp"
+                    android:src="@{viewModel.list.get(1).image}"
+                    app:layout_constraintBottom_toBottomOf="@+id/image3"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/image3"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/image1"
+                    app:layout_constraintTop_toTopOf="@+id/image3" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/pause_btn"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#FFFFFF"
-            android:scaleType="center"
-            android:src="@drawable/pause_btn"
-            app:borderWidth="0dp"
-            app:elevation="3dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="MissingConstraints" />
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="@{(viewModel.list.get(0).clicked) ? 0.5f : 1f}"
+                    android:background="@drawable/mini_card_background"
+                    android:elevation="5dp"
+                    android:onClick="@{viewModel.list.get(0).itemClick}"
+                    android:padding="20dp"
+                    android:src="@{viewModel.list.get(0).image}"
+                    app:layout_constraintBottom_toBottomOf="@+id/image2"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/image2"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/image2" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:weightSum="3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:alpha="@{(viewModel.list.get(2).clicked) ? 0.5f : 1f}"
+                    android:background="@drawable/mini_card_background"
+                    android:elevation="5dp"
+                    android:onClick="@{viewModel.list.get(2).itemClick}"
+                    android:padding="20dp"
+                    android:src="@{viewModel.list.get(2).image}"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/image2"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:alpha="@{(viewModel.list.get(3).clicked) ? 0.5f : 1f}"
+                    android:background="@drawable/mini_card_background"
+                    android:elevation="5dp"
+                    android:onClick="@{viewModel.list.get(3).itemClick}"
+                    android:padding="20dp"
+                    android:src="@{viewModel.list.get(3).image}"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/image5"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/image1" />
+
+                <ImageView
+                    android:id="@+id/image5"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:alpha="@{(viewModel.list.get(4).clicked) ? 0.5f : 1f}"
+                    android:background="@drawable/mini_card_background"
+                    android:elevation="5dp"
+                    android:onClick="@{viewModel.list.get(4).itemClick}"
+                    android:padding="20dp"
+                    android:src="@{viewModel.list.get(4).image}"
+                    app:layout_constraintBottom_toBottomOf="@+id/image4"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/image6"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/image4"
+                    app:layout_constraintTop_toTopOf="@+id/image4" />
+
+                <ImageView
+                    android:id="@+id/image6"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="@{(viewModel.list.get(5).clicked) ? 0.5f : 1f}"
+                    android:background="@drawable/mini_card_background"
+                    android:elevation="5dp"
+                    android:onClick="@{viewModel.list.get(5).itemClick}"
+                    android:padding="20dp"
+                    android:src="@{viewModel.list.get(5).image}"
+                    app:layout_constraintBottom_toBottomOf="@+id/image5"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/image5"
+                    app:layout_constraintTop_toTopOf="@+id/image5" />
+
+                <ImageView
+                    android:id="@+id/image7"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:alpha="@{(viewModel.list.get(6).clicked) ? 0.5f : 1f}"
+                    android:background="@drawable/mini_card_background"
+                    android:elevation="5dp"
+                    android:onClick="@{viewModel.list.get(6).itemClick}"
+                    android:padding="20dp"
+                    android:src="@{viewModel.list.get(6).image}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/image8"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/image4" />
+
+                <ImageView
+                    android:id="@+id/image8"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:alpha="@{(viewModel.list.get(7).clicked) ? 0.5f : 1f}"
+                    android:background="@drawable/mini_card_background"
+                    android:elevation="5dp"
+                    android:onClick="@{viewModel.list.get(7).itemClick}"
+                    android:padding="20dp"
+                    android:src="@{viewModel.list.get(7).image}"
+                    app:layout_constraintBottom_toBottomOf="@+id/image7"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/image9"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/image7"
+                    app:layout_constraintTop_toTopOf="@+id/image7" />
+
+                <ImageView
+                    android:id="@+id/image9"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="@{(viewModel.list.get(8).clicked) ? 0.5f : 1f}"
+                    android:background="@drawable/mini_card_background"
+                    android:elevation="5dp"
+                    android:onClick="@{viewModel.list.get(8).itemClick}"
+                    android:padding="20dp"
+                    android:src="@{viewModel.list.get(8).image}"
+                    app:layout_constraintBottom_toBottomOf="@+id/image8"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/image8"
+                    app:layout_constraintTop_toTopOf="@+id/image8" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/pause_btn"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#FFFFFF"
+                android:scaleType="center"
+                android:src="@drawable/pause_btn"
+                app:borderWidth="0dp"
+                app:elevation="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight=".8"
-                android:paddingLeft="10dp"
-                android:text="10 points"
-                android:textColor="#000000"
-                android:textSize="16sp" />
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <View
-                android:id="@+id/separator"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight=".8"
+                    android:paddingLeft="10dp"
+                    android:text="10 points"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="13dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_weight=".01"
+                    android:background="@color/game_text_color" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/point_recycler_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2.19"
+                    app:itemBinding="@{pointListViewModel.itemBinding}"
+                    app:items="@{pointListViewModel.list}"
+                    app:layoutManager="@{LayoutManagers.linear(LinearLayoutManager.HORIZONTAL,false)}"></android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/flying_card_layour"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="13dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="13dp"
-                android:layout_weight=".01"
-                android:background="@color/game_text_color" />
+                android:layout_height="0dp"
+                android:layout_marginBottom="120dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="120dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/point_recycler_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2.19"
-                app:itemBinding="@{pointListViewModel.itemBinding}"
-                app:items="@{pointListViewModel.list}"
-                app:layoutManager="@{LayoutManagers.linear(LinearLayoutManager.HORIZONTAL,false)}"></android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/flying_card_layour"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="120dp"
-            android:layout_marginEnd="80dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="120dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-            <ImageView
-                android:id="@+id/flying_card"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/card_background"
-                android:cropToPadding="true"
-                android:padding="30dp"
-                android:src="@drawable/summer_1" />
-        </FrameLayout>
+                <ImageView
+                    android:id="@+id/flying_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/card_background"
+                    android:cropToPadding="true"
+                    android:padding="30dp"
+                    android:src="@drawable/summer_1" />
+            </FrameLayout>
 
 
-        <FrameLayout
+            <FrameLayout
             android:id="@+id/slide_view_progress_game"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -334,77 +343,123 @@
 
 
             <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/coffeImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="32dp"
-                    android:src="@drawable/coffeeico"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+            android:id="@+id/coffeImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/coffeeico"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:text="PAUSE"
-                    android:textColor="#AFAFAF"
-                    android:textSize="35sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/coffeImg" />
+            <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="PAUSE"
+            android:textColor="#AFAFAF"
+            android:textSize="35sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/coffeImg" />
 
-                <Button
-                    android:id="@+id/activity_progress_resume"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="28dp"
-                    android:background="@drawable/pause_menu_button_bg"
-                    android:paddingBottom="15dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
-                    android:paddingTop="15dp"
-                    android:text="RESUME"
-                    android:textSize="30sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            <Button
+            android:id="@+id/activity_progress_resume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/pause_menu_button_bg"
+            android:paddingBottom="15dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="15dp"
+            android:text="RESUME"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
-                <Button
-                    android:id="@+id/activity_progress_end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/pause_menu_button_bg"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
-                    android:paddingTop="5dp"
-                    android:text="END"
-                    android:textSize="25sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_progress_resume" />
+            <Button
+            android:id="@+id/activity_progress_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/pause_menu_button_bg"
+            android:paddingBottom="5dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="5dp"
+            android:text="END"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_progress_resume" />
 
             </android.support.constraint.ConstraintLayout>
 
-        </FrameLayout>
+            </FrameLayout>
 
+            <FrameLayout
+                android:id="@+id/end_slide_menu"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linearLayout2">
 
-    </android.support.constraint.ConstraintLayout>
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-</RelativeLayout>
+                    <Button
+                        android:id="@+id/retry_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/pause_menu_button_bg"
+                        android:text="Retry"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/end_btn"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:onClick="@{viewModel.retryGame}"/>
+
+                    <Button
+                        android:id="@+id/end_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/pause_menu_button_bg"
+                        android:text="End"
+                        app:layout_constraintBottom_toBottomOf="@+id/retry_btn"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/retry_btn"
+                        app:layout_constraintTop_toTopOf="@+id/retry_btn"
+                        android:onClick="@{viewModel.endGame}"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </FrameLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </RelativeLayout>
 </layout>

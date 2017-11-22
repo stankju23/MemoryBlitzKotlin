@@ -54,4 +54,7 @@ object DataManager {
 
     var notificationsTimeMinute: Int = 0
 
+    var endGameElementPosition: Array<Float> = Array(2,{0.0f;0.0f})
+
+
 }

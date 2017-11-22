@@ -16,10 +16,14 @@ import com.example.stanislavcavajda.memoryblitz.Model.WantedCardModel
 import java.util.*
 import android.widget.ImageView
 import com.example.stanislavcavajda.memoryblitz.ViewModel.*
+import com.google.android.gms.drive.events.ChangeListener
 import com.mancj.slideup.SlideUp
 import com.mancj.slideup.SlideUpBuilder
 import kotlin.collections.ArrayList
 import kotlinx.android.synthetic.main.activity_classic_game_2x2.*
+import android.widget.Toast
+
+
 
 
 class ProgressGameActivity : AppCompatActivity() {
@@ -116,6 +120,11 @@ class ProgressGameActivity : AppCompatActivity() {
                 })
                 .withStartGravity(Gravity.BOTTOM)
                 .build()
+
+        DataManager.endGameElementPosition.set(0,end_slide_menu.x)
+        DataManager.endGameElementPosition.set(1,end_slide_menu.y)
+
+        end_slide_menu.translationY = -1000f
 
 
         activity_progress_resume.setOnClickListener {

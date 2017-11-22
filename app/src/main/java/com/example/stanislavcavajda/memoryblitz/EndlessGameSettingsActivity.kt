@@ -37,6 +37,7 @@ class EndlessGameSettingsActivity : AppCompatActivity() {
         cards_number_picker.data = arrayListOf("3 cards","4 cards", "5 cards", "6 cards", "7 cards", "8 cards", "9 cards")
 
         button2.setOnClickListener {
+            this.finish()
             DataManager.numberOfCards = cards_number_picker.currentItemPosition + 3
             val intent = Intent(this, ProgressGameActivity::class.java)
             startActivity(intent)

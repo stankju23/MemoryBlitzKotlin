@@ -45,8 +45,15 @@
             </intent-filter>
         </receiver>
 
+            <receiver android:name=".SlideUpReceiver">
+                <intent-filter>
+                    <action android:name="com.example.stanislavcavajda.memoryblitz.CUSTOM_INTENT"/>
+                </intent-filter>
+
+            </receiver>
+
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".NotificationActivity"></activity>
+
     </application>
 
 </manifest>
