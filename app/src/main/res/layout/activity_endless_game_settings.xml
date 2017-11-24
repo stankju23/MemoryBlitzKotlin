@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="CHOOSE GRAPHIC PACK"
+            android:text="@string/choose_graphic_pack"
             android:textColor="@color/text_color_menu"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,8 +60,8 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="NUMBER OF CARDS PER SERIES"
-            android:textColor="#343434"
+            android:text="@string/number_of_cards_per_series"
+            android:textColor="#E5E5E5"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
@@ -76,7 +76,7 @@
             android:background="@color/gradient_start"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="GO AHEAD AND START"
+            android:text="@string/go_ahead_and_play"
             android:textColor="#E5E5E5"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -98,8 +98,7 @@
             app:wheel_indicator_color="#919191"
             app:wheel_indicator_size="1dp"
             app:wheel_visible_item_count="5"
-            app:wheel_item_text_color="#4E4E4E"
-            >
+            app:wheel_item_text_color="#4E4E4E">
 
         </com.aigestudio.wheelpicker.WheelPicker>
 

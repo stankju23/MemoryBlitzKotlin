@@ -3,23 +3,19 @@ package com.example.stanislavcavajda.memoryblitz.ViewModel
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.databinding.BaseObservable
 import android.graphics.drawable.Drawable
 import android.view.View
-import android.widget.Toast
 import com.example.stanislavcavajda.memoryblitz.Data.DataManager
 import com.example.stanislavcavajda.memoryblitz.GameTypeActivity
 import com.example.stanislavcavajda.memoryblitz.ProgressGameActivity
 import com.example.stanislavcavajda.memoryblitz.R
 import com.example.stanislavcavajda.memoryblitz.Data.Constants
 import com.example.stanislavcavajda.memoryblitz.ClassicGameActivity
-import com.example.stanislavcavajda.memoryblitz.Model.WantedCardModel
-import com.example.stanislavcavajda.memoryblitz.SpeedGameSettingsActivity
-import com.example.stanislavcavajda.memoryblitz.EndlessGameSettingsActivity
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.os.Handler
-import android.provider.ContactsContract
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
@@ -36,6 +32,8 @@ class GamePlanItemViewModel: BaseObservable {
     var isAnimation = ObservableBoolean(false)
     var background: ObservableField<Drawable> = ObservableField()
 
+    var preferences:SharedPreferences? = null
+
     constructor(name: Int, image: Drawable, background: Drawable, clicked: Boolean, context: Context) {
         this.name = name
         this.oldImage = image
@@ -43,6 +41,7 @@ class GamePlanItemViewModel: BaseObservable {
         this.clicked = clicked
         this.context = context
         this.background.set(background)
+        this.preferences = (context as Activity).getSharedPreferences("highScore",Context.MODE_PRIVATE)
     }
 
     fun itemClick(v: View) {
@@ -59,6 +58,7 @@ class GamePlanItemViewModel: BaseObservable {
                         notifyChange()
                         if (DataManager.actualIndex == DataManager.numberOfCards) {
                             DataManager.canClick = false
+                            DataManager.actualScore ++
                             var fab = (context as Activity).findViewById<FloatingActionButton>(R.id.pause_btn)
                             fab.hide()
                             var handler = Handler()
@@ -70,6 +70,14 @@ class GamePlanItemViewModel: BaseObservable {
 
                         }
                     } else {
+                        if (DataManager.progressGameHighScore < DataManager.actualScore) {
+                            DataManager.progressGameHighScore = DataManager.actualScore
+                            DataManager.actualScore = 0
+                            var editor = preferences?.edit()
+                            editor?.putInt(Constants.PROGRESS_GAME_HIGH_SCORE,DataManager.progressGameHighScore)
+                            editor?.commit()
+                        }
+                        DataManager.actualScore = 0
                         var endGamePanel = (context as Activity).findViewById<FrameLayout>(R.id.end_slide_menu)
                         DataManager.canClick = false
                         while (DataManager.actualIndex <= DataManager.pointsList.size - 1) {
@@ -94,6 +102,7 @@ class GamePlanItemViewModel: BaseObservable {
 
 
                 }
+
             } else if (DataManager.typeSettingsActivity == Constants.CLASSIC_GAME) {
                 if (!clicked) {
                     clicked = true
@@ -129,8 +138,11 @@ class GamePlanItemViewModel: BaseObservable {
                         notifyChange()
                         if (DataManager.actualScore > DataManager.classicGameHighScore) {
                             DataManager.classicGameHighScore = DataManager.actualScore
-                            DataManager.actualScore = 0
+                            var editor = preferences?.edit()
+                            editor?.putInt(Constants.CLASSIC_GAME_HIGH_SCORE,DataManager.classicGameHighScore)
+                            editor?.commit()
                         }
+                        DataManager.actualScore = 0
 
                         handler.postDelayed(Runnable {
                             (context as Activity).finish()

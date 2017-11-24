@@ -1,5 +1,6 @@
 package com.example.stanislavcavajda.memoryblitz
 
+import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
@@ -12,6 +13,7 @@ import com.example.stanislavcavajda.memoryblitz.ViewModel.CardListViewModel
 import com.example.stanislavcavajda.memoryblitz.databinding.ActivitySpeedGameBinding
 import kotlinx.android.synthetic.main.activity_speed_game.*
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
+import com.example.stanislavcavajda.memoryblitz.Data.Constants
 
 class SpeedGameSettingsActivity : AppCompatActivity() {
 
@@ -19,6 +21,8 @@ class SpeedGameSettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setFullScreen()
         var binding:ActivitySpeedGameBinding = DataBindingUtil.setContentView(this,R.layout.activity_speed_game)
+
+        var preferences = getSharedPreferences("game", Context.MODE_PRIVATE)
 
         DataManager.graphicPacks.clear()
         for (item in DataManager.graphicPacksNames) {
@@ -53,6 +57,11 @@ class SpeedGameSettingsActivity : AppCompatActivity() {
         card_matrix_to_remember_segmented_group.setTintColor(ContextCompat.getColor(this,R.color.gradient_start),ContextCompat.getColor(this,R.color.white))
 
         button2.setOnClickListener(View.OnClickListener {
+            var editor = preferences.edit()
+            editor.putInt(Constants.CARD_MATRIX,DataManager.cardMatrix)
+            editor.putInt(Constants.NUMBER_OF_WANTED_CARDS,DataManager.numberOfWantedCards)
+            editor.putInt(Constants.TIME_TO_MEMORIZE,DataManager.timeToMemorize)
+            editor.commit()
             var intent = Intent(this,ClassicGameActivity::class.java)
             startActivity(intent)
             this.finish()

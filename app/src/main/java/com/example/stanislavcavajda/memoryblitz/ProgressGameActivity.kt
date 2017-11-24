@@ -1,6 +1,9 @@
 package com.example.stanislavcavajda.memoryblitz
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -14,16 +17,11 @@ import com.example.stanislavcavajda.memoryblitz.databinding.ActivityProgressGame
 import kotlinx.android.synthetic.main.activity_progress_game.*
 import com.example.stanislavcavajda.memoryblitz.Model.WantedCardModel
 import java.util.*
-import android.widget.ImageView
 import com.example.stanislavcavajda.memoryblitz.ViewModel.*
-import com.google.android.gms.drive.events.ChangeListener
 import com.mancj.slideup.SlideUp
 import com.mancj.slideup.SlideUpBuilder
 import kotlin.collections.ArrayList
-import kotlinx.android.synthetic.main.activity_classic_game_2x2.*
-import android.widget.Toast
-
-
+import com.example.stanislavcavajda.memoryblitz.Data.Constants
 
 
 class ProgressGameActivity : AppCompatActivity() {
@@ -31,16 +29,20 @@ class ProgressGameActivity : AppCompatActivity() {
     var list : ArrayList<Int>? = null
     var index = 0
     var seconds: Long = 500L
+    var preferences:SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var binding: ActivityProgressGameBinding = DataBindingUtil.setContentView(this,R.layout.activity_progress_game)
         DataManager.pointsList.clear()
 
+        this.preferences = this.getSharedPreferences("highScore", Context.MODE_PRIVATE)
 
         for (i  in 0..DataManager.numberOfCards - 1 ) {
             DataManager.pointsList.add(PointViewModel(3))
         }
+
+        points.setText(DataManager.actualScore.toString())
 
         binding.pointListViewModel = PointListViewModel(DataManager.pointsList)
 
@@ -133,6 +135,13 @@ class ProgressGameActivity : AppCompatActivity() {
 
         activity_progress_end.setOnClickListener {
             this.finish()
+            if (DataManager.actualScore > DataManager.progressGameHighScore) {
+                DataManager.progressGameHighScore = DataManager.actualScore
+                var editor = preferences?.edit()
+                editor?.putInt(Constants.PROGRESS_GAME_HIGH_SCORE, DataManager.progressGameHighScore)
+                editor?.commit()
+            }
+            DataManager.actualScore = 0
             var intent = Intent(this,StartActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
@@ -171,5 +180,15 @@ class ProgressGameActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
 
         decor_View.systemUiVisibility = ui_Options
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (DataManager.actualScore > DataManager.progressGameHighScore) {
+            DataManager.progressGameHighScore = DataManager.actualScore
+            var editor = preferences?.edit()
+            editor?.putInt(Constants.PROGRESS_GAME_HIGH_SCORE, DataManager.progressGameHighScore)
+            editor?.commit()
+        }
     }
 }

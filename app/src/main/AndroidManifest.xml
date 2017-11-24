@@ -4,7 +4,7 @@
     package="com.example.stanislavcavajda.memoryblitz">
 
     <uses-permission android:name="android.permission.SET_ALARM" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -41,19 +41,17 @@
 
         <receiver android:name=".NotificationReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".SlideUpReceiver">
+            <intent-filter>
+                <action android:name="com.example.stanislavcavajda.memoryblitz.CUSTOM_INTENT" />
             </intent-filter>
         </receiver>
 
-            <receiver android:name=".SlideUpReceiver">
-                <intent-filter>
-                    <action android:name="com.example.stanislavcavajda.memoryblitz.CUSTOM_INTENT"/>
-                </intent-filter>
-
-            </receiver>
-
         <activity android:name=".SettingsActivity" />
-
+        <activity android:name=".HighScoreActivity"></activity>
     </application>
 
 </manifest>

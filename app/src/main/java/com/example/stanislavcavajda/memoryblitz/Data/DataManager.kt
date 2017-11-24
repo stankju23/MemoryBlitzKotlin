@@ -40,6 +40,8 @@ object DataManager {
 
     var classicGameHighScore: Int = 0
 
+    var progressGameHighScore: Int = 0
+
     var actualScore: Int = 0
 
     var pauseMillis: Long = 0

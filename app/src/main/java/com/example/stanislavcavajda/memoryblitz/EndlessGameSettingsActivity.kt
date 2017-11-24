@@ -1,5 +1,6 @@
 package com.example.stanislavcavajda.memoryblitz
 
+import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +11,10 @@ import com.example.stanislavcavajda.memoryblitz.ViewModel.CardViewModel
 import com.example.stanislavcavajda.memoryblitz.ViewModel.CardListViewModel
 import com.example.stanislavcavajda.memoryblitz.databinding.ActivityEndlessGameSettingsBinding
 import kotlinx.android.synthetic.main.activity_endless_game_settings.*
+import com.example.stanislavcavajda.memoryblitz.Data.Constants
+
+
+
 
 
 class EndlessGameSettingsActivity : AppCompatActivity() {
@@ -18,6 +23,7 @@ class EndlessGameSettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setFullScreen()
 
+        var preferences = getSharedPreferences("game", Context.MODE_PRIVATE)
 
         var binding: ActivityEndlessGameSettingsBinding = DataBindingUtil.setContentView(this,R.layout.activity_endless_game_settings)
 
@@ -34,10 +40,25 @@ class EndlessGameSettingsActivity : AppCompatActivity() {
         var viewModel = CardListViewModel(DataManager.graphicPacks,this)
         binding.viewModel = viewModel
 
-        cards_number_picker.data = arrayListOf("3 cards","4 cards", "5 cards", "6 cards", "7 cards", "8 cards", "9 cards")
+        var cards = ArrayList<String>()
+        for(i in 3..9) {
+            var cardString = resources.getString(R.string.card)
+            if (cardString != "karta" && i < 5)  {
+                cardString = "karty"
+            }
+            cards.add(i-3,"$i ${cardString}")
+        }
+        cards_number_picker.data = cards
+        cards_number_picker.selectedItemPosition = DataManager.numberOfCards
 
         button2.setOnClickListener {
             this.finish()
+
+            var editor = preferences.edit()
+            editor.putString(Constants.GRAPHIC_PACK,DataManager.actualCheckedGraphicPack)
+            editor.putInt(Constants.NUMBER_OF_CARDS,DataManager.numberOfCards)
+            editor.commit()
+
             DataManager.numberOfCards = cards_number_picker.currentItemPosition + 3
             val intent = Intent(this, ProgressGameActivity::class.java)
             startActivity(intent)

@@ -38,12 +38,13 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="50dp"
-        android:text="ENDLESS"
+        android:gravity="center"
+        android:text="@string/progress_game"
         android:textColor="@color/text_color"
         android:textSize="39sp"
         android:textStyle="bold"
@@ -67,15 +68,16 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="50dp"
-        android:text="SPEED GAME"
+        android:text="@string/classic_game"
         android:textColor="@color/text_color"
         android:textSize="39sp"
         android:textStyle="bold"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="@+id/speed_game"
         app:layout_constraintStart_toStartOf="@+id/speed_game"
         app:layout_constraintTop_toTopOf="@+id/speed_game" />

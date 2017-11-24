@@ -14,6 +14,15 @@ object Constants {
     const val WANTED_CARDS_TWO = 1
     const val WANTED_CARDS_THREE = 2
     const val NOTIFICATION_STATUS = "notificationStatus"
+    const val PROGRESS_GAME_HIGH_SCORE = "progressGameHighScore"
+    const val CLASSIC_GAME_HIGH_SCORE = "classicGameHighScore"
+    const val GRAPHIC_PACK = "graphicPack"
+    const val NUMBER_OF_CARDS = "numberOfCards"
+    const val CARD_MATRIX = "cardMatrix"
+    const val NUMBER_OF_WANTED_CARDS = "numberOfWantedCards"
+    const val TIME_TO_MEMORIZE = "timeToMemorize"
+
+
 
 
 }

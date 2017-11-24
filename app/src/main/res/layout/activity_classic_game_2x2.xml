@@ -44,7 +44,7 @@
                 android:layout_weight="1.1"
                 android:text="@{viewModel.timer}"
                 android:textColor="@color/game_text_color"
-                android:textSize="30sp" />
+                android:textSize="25sp" />
 
             <View
                 android:id="@+id/sep"
@@ -150,15 +150,17 @@
             android:background="@drawable/card_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView14">
+            app:layout_constraintTop_toTopOf="@+id/textView14"
+            app:layout_constraintVertical_bias="1.0">
 
             <ImageView
                 android:id="@+id/coffeImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:src="@drawable/coffeeico"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -171,20 +173,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="PAUSE"
                 android:textColor="#AFAFAF"
                 android:textSize="35sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/coffeImg" />
+                app:layout_constraintTop_toBottomOf="@+id/coffeImg" />
 
             <Button
                 android:id="@+id/resume"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="24dp"
                 android:background="@drawable/pause_menu_button_bg"
                 android:paddingBottom="15dp"
                 android:paddingLeft="30dp"
@@ -200,18 +201,15 @@
                 android:id="@+id/retry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="100dp"
                 android:background="@drawable/pause_menu_button_bg"
-                android:text="RETRY"
-                android:textSize="25sp"
                 android:paddingBottom="5dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="RETRY"
+                android:textSize="25sp"
                 app:layout_constraintEnd_toStartOf="@+id/end"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/resume" />
 
@@ -220,12 +218,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/pause_menu_button_bg"
-                android:text="END"
-                android:textSize="25sp"
                 android:paddingBottom="5dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:paddingTop="5dp"
+                android:text="END"
+                android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="@+id/retry"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

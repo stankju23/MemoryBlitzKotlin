@@ -1,6 +1,8 @@
 package com.example.stanislavcavajda.memoryblitz
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -39,10 +41,14 @@ class ClassicGameActivity : AppCompatActivity() {
     var waiting = true
     var timer1: CountDownTimer? = null
 
+    var preferences: SharedPreferences? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullScreen()
         DataManager.classicGameGamePlan.clear()
+
+        this.preferences = this.getSharedPreferences("highScore", Context.MODE_PRIVATE)
 
         DataManager.wantedCards.clear()
         DataManager.canClick = false
@@ -270,6 +276,7 @@ class ClassicGameActivity : AppCompatActivity() {
         }
 
         retry.setOnClickListener {
+            DataManager.actualScore = 0
             this.finish()
             var intent = Intent(this, ClassicGameActivity::class.java)
             startActivity(intent)
@@ -277,6 +284,13 @@ class ClassicGameActivity : AppCompatActivity() {
         }
 
         end.setOnClickListener {
+            if (DataManager.actualScore > DataManager.progressGameHighScore) {
+                DataManager.progressGameHighScore = DataManager.actualScore
+                var editor = preferences?.edit()
+                editor?.putInt(Constants.CLASSIC_GAME_HIGH_SCORE, DataManager.progressGameHighScore)
+                editor?.commit()
+            }
+            DataManager.actualScore = 0
             this.finish()
             var intent = Intent(this, StartActivity::class.java)
             startActivity(intent)
@@ -311,6 +325,16 @@ class ClassicGameActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (DataManager.actualScore > DataManager.progressGameHighScore) {
+            DataManager.progressGameHighScore = DataManager.actualScore
+            var editor = preferences?.edit()
+            editor?.putInt(Constants.CLASSIC_GAME_HIGH_SCORE, DataManager.progressGameHighScore)
+            editor?.commit()
+        }
     }
 
 }

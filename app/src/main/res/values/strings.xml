@@ -7,4 +7,15 @@
     <string name="yes">Yes</string>
     <string name="on">On</string>
     <string name="off">Off</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="choose_graphic_pack">Choose Graphic Pack</string>
+    <string name="go_ahead_and_play">Go ahead and start</string>
+    <string name="progress_game">Progress</string>
+    <string name="classic_game">Classic</string>
+    <string name="card_matrix">Card matrix</string>
+    <string name="number_of_cards">Cards to remember per level</string>
+    <string name="time_to_remember">Time to remember</string>
+    <string name="card">card</string>
+    <string name="number_of_cards_per_series">Number of cards per series</string>
 </resources>
