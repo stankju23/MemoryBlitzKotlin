@@ -58,5 +58,39 @@ object DataManager {
 
     var endGameElementPosition: Array<Float> = Array(2,{0.0f;0.0f})
 
+    var translatedGraphicPacks = arrayListOf<String>()
+
+    fun scoreMultiplicierClassicGame() :Double {
+        var cardMatrixMultiplicier = 0.0
+        var wantedCardsMulitplicier = 0.0
+        when(cardMatrix) {
+            Constants.CLASSIC_GAME_2x2 -> cardMatrixMultiplicier = 1.0
+            Constants.CLASSIC_GAME_2x3 -> cardMatrixMultiplicier = 1.5
+            Constants.CLASSIC_GAME_3x3 -> cardMatrixMultiplicier = 2.0
+        }
+
+        when(numberOfWantedCards) {
+            Constants.WANTED_CARDS_ONE -> wantedCardsMulitplicier = 1.0
+            Constants.WANTED_CARDS_TWO -> wantedCardsMulitplicier = 1.5
+            Constants.WANTED_CARDS_THREE -> wantedCardsMulitplicier = 2.0
+        }
+
+        return  cardMatrixMultiplicier * wantedCardsMulitplicier
+    }
+    fun scoreMultiplicierProgressivGame() :Double {
+        var scoreMultiplicier = 0.0
+        if (numberOfCards < 5) {
+            scoreMultiplicier = 1.0
+        } else {
+            when(numberOfCards) {
+                6 -> scoreMultiplicier = 1.5
+                7 -> scoreMultiplicier = 2.0
+                8 -> scoreMultiplicier = 2.5
+                9 -> scoreMultiplicier = 3.0
+
+            }
+        }
+        return scoreMultiplicier
+    }
 
 }

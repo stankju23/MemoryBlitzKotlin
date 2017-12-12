@@ -276,10 +276,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight=".8"
+                    android:fontFamily="@font/nunito_light"
                     android:paddingLeft="10dp"
                     android:text="10 points"
                     android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:typeface="normal" />
 
                 <View
                     android:id="@+id/separator"
@@ -359,18 +361,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="PAUSE"
-            android:textColor="#AFAFAF"
-            android:textSize="35sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/coffeImg" />
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/averia_sans_libre_light_italic"
+                    android:text="@string/pause"
+                    android:textColor="#AFAFAF"
+                    android:textSize="35sp"
+                    android:typeface="monospace"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/coffeImg" />
 
             <Button
             android:id="@+id/activity_progress_resume"
@@ -384,7 +388,7 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:paddingTop="15dp"
-            android:text="RESUME"
+            android:text="@string/resume"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -402,7 +406,7 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:paddingTop="5dp"
-            android:text="END"
+            android:text="@string/end"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -434,13 +438,13 @@
                         android:layout_marginBottom="12dp"
                         android:layout_marginTop="12dp"
                         android:background="@drawable/pause_menu_button_bg"
-                        android:text="Retry"
+                        android:onClick="@{viewModel.retryGame}"
+                        android:text="@string/retry"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/end_btn"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:onClick="@{viewModel.retryGame}"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
                         android:id="@+id/end_btn"
@@ -448,7 +452,7 @@
                         android:layout_height="0dp"
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/pause_menu_button_bg"
-                        android:text="End"
+                        android:text="@string/end"
                         app:layout_constraintBottom_toBottomOf="@+id/retry_btn"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"

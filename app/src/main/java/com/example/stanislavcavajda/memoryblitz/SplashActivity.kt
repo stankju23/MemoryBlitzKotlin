@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.Toast
+import kotlinx.android.synthetic.main.kokotna_aktivita.*
 
 class SplashActivity : AppCompatActivity() {
 
@@ -17,10 +19,12 @@ class SplashActivity : AppCompatActivity() {
             var activity = Intent(this,StartActivity::class.java)
             startActivity(activity)
             overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
-        },500)
+        },2000)
+
 
 
     }
+
 
     fun setFullScreen() {
         val decor_View = window.decorView

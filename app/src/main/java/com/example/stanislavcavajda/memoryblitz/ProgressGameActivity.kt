@@ -30,11 +30,14 @@ class ProgressGameActivity : AppCompatActivity() {
     var index = 0
     var seconds: Long = 500L
     var preferences:SharedPreferences? = null
+    var handler: Handler? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var binding: ActivityProgressGameBinding = DataBindingUtil.setContentView(this,R.layout.activity_progress_game)
         DataManager.pointsList.clear()
+
+        points.setText("${DataManager.actualScore} ${getString(R.string.points)}")
 
         this.preferences = this.getSharedPreferences("highScore", Context.MODE_PRIVATE)
 
@@ -42,8 +45,7 @@ class ProgressGameActivity : AppCompatActivity() {
             DataManager.pointsList.add(PointViewModel(3))
         }
 
-        points.setText(DataManager.actualScore.toString())
-
+        handler = Handler()
         binding.pointListViewModel = PointListViewModel(DataManager.pointsList)
 
         setFullScreen()
@@ -61,13 +63,13 @@ class ProgressGameActivity : AppCompatActivity() {
         game_plan.animate().translationY(main_plan_layout.height/2f).duration = 1000
 
 
-        var handler = Handler()
         var cardList = ArrayList<GamePlanItemViewModel>()
-        handler.postDelayed(Runnable { game_plan.animate().translationY(2000f).duration = 1000},2000)
+        handler?.postDelayed(Runnable { game_plan.animate().translationY(2000f).duration = 1000},2000)
 
 
         for (i in 1..9) {
-            var resId = resources.getIdentifier("${DataManager.actualCheckedGraphicPack}_$i","drawable",packageName)
+            var name = "${DataManager.actualCheckedGraphicPack}_$i"
+            var resId = resources.getIdentifier(name,"drawable",packageName)
             cardList.add(GamePlanItemViewModel(i, ContextCompat.getDrawable(this, resId), ContextCompat.getDrawable(this, R.drawable.card_background), false, this))
         }
 
@@ -105,12 +107,12 @@ class ProgressGameActivity : AppCompatActivity() {
                                     DataManager.pointsList.get(i).correct.set(2);
                                     var recyclerView = findViewById<RecyclerView>(R.id.point_recycler_view)
                                     recyclerView.adapter.notifyItemChanged(i)}
-            handler.postDelayed(runnable,seconds)
+            handler?.postDelayed(runnable,seconds)
         }
 
 
-        handler.postDelayed(Runnable { game_plan.animate().translationY(0f).duration = 1000 }, seconds + 1500)
-        handler.postDelayed(Runnable { DataManager.canClick = true },seconds)
+        handler?.postDelayed(Runnable { game_plan.animate().translationY(0f).duration = 1000 }, seconds + 1500)
+        handler?.postDelayed(Runnable { DataManager.canClick = true },seconds)
 
         slide_view_progress_game.bringToFront()
 
@@ -164,8 +166,7 @@ class ProgressGameActivity : AppCompatActivity() {
         flying_card.setImageResource(resourceId)
         flying_card_layour.x = 2000f
         flying_card_layour.animate().translationX(0f).duration = 500
-        var handler1 = Handler()
-        handler1.postDelayed( Runnable { flying_card_layour.animate().translationX(- 2000f).duration = 500 },1250)
+        handler?.postDelayed( Runnable { flying_card_layour.animate().translationX(- 2000f).duration = 500 },1250)
         index++
     }
 
@@ -190,5 +191,6 @@ class ProgressGameActivity : AppCompatActivity() {
             editor?.putInt(Constants.PROGRESS_GAME_HIGH_SCORE, DataManager.progressGameHighScore)
             editor?.commit()
         }
+        handler?.removeMessages(0)
     }
 }

@@ -58,7 +58,7 @@
                 android:background="@color/game_text_color" />
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/memorizeText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -96,12 +96,12 @@
             android:id="@+id/layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <ViewStub
                 android:id="@+id/viewStub"
@@ -124,21 +124,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout" />
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="Summer pack"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/slide_view"
@@ -147,13 +132,13 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/card_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView14"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <ImageView
                 android:id="@+id/coffeImg"
@@ -174,7 +159,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="PAUSE"
+                android:text="@string/pause"
                 android:textColor="#AFAFAF"
                 android:textSize="35sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -191,7 +176,7 @@
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:paddingTop="15dp"
-                android:text="RESUME"
+                android:text="@string/resume"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -207,7 +192,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="5dp"
-                android:text="RETRY"
+                android:text="@string/retry"
                 android:textSize="25sp"
                 app:layout_constraintEnd_toStartOf="@+id/end"
                 app:layout_constraintStart_toStartOf="parent"
@@ -222,7 +207,7 @@
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:paddingTop="5dp"
-                android:text="END"
+                android:text="@string/end"
                 android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="@+id/retry"
                 app:layout_constraintEnd_toEndOf="parent"

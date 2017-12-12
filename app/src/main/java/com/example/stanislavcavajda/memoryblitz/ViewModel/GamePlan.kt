@@ -5,13 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.BaseObservable
 import android.databinding.ObservableArrayList
-import android.os.Handler
 import android.view.View
-import com.example.stanislavcavajda.memoryblitz.Data.DataManager
 import com.example.stanislavcavajda.memoryblitz.GameTypeActivity
 import com.example.stanislavcavajda.memoryblitz.ProgressGameActivity
 import com.example.stanislavcavajda.memoryblitz.R
-import com.example.stanislavcavajda.memoryblitz.EndlessGameSettingsActivity
 
 /**
  * Created by stanislavcavajda on 04/10/2017.

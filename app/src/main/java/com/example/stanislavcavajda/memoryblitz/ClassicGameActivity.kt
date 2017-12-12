@@ -56,7 +56,7 @@ class ClassicGameActivity : AppCompatActivity() {
 
 
         var binding: ActivityClassicGame2x2Binding = DataBindingUtil.setContentView(this, R.layout.activity_classic_game_2x2)
-        var timerViewModel = TimerViewModel("0:0${DataManager.pauseMillis / 1000}", "MEMORIZE", "${DataManager.actualScore}")
+        var timerViewModel = TimerViewModel("0:0${DataManager.pauseMillis / 1000}", getString(R.string.memorize), "${DataManager.actualScore} ${getString(R.string.points)}")
         binding.viewModel = timerViewModel
 
         var timer = object : CountDownTimer(DataManager.pauseMillis, 1000) {
@@ -64,6 +64,7 @@ class ClassicGameActivity : AppCompatActivity() {
             override fun onTick(millis: Long) {
                 if (millis / 1000 == 1L) {
                     timerViewModel.timer.set("0:00")
+                    timerViewModel.mainText.set(getString(R.string.lets_go))
                 } else {
                     timerViewModel.timer.set("0:0${(millis / 1000 - 1).toString()}")
                 }
@@ -284,7 +285,7 @@ class ClassicGameActivity : AppCompatActivity() {
         }
 
         end.setOnClickListener {
-            if (DataManager.actualScore > DataManager.progressGameHighScore) {
+            if (DataManager.actualScore > DataManager.classicGameHighScore) {
                 DataManager.progressGameHighScore = DataManager.actualScore
                 var editor = preferences?.edit()
                 editor?.putInt(Constants.CLASSIC_GAME_HIGH_SCORE, DataManager.progressGameHighScore)
@@ -329,10 +330,10 @@ class ClassicGameActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        if (DataManager.actualScore > DataManager.progressGameHighScore) {
-            DataManager.progressGameHighScore = DataManager.actualScore
+        if (DataManager.actualScore > DataManager.classicGameHighScore) {
+            DataManager.classicGameHighScore = DataManager.actualScore
             var editor = preferences?.edit()
-            editor?.putInt(Constants.CLASSIC_GAME_HIGH_SCORE, DataManager.progressGameHighScore)
+            editor?.putInt(Constants.CLASSIC_GAME_HIGH_SCORE, DataManager.classicGameHighScore)
             editor?.commit()
         }
     }

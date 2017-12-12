@@ -27,10 +27,10 @@
             android:name=".GameTypeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SpeedGameSettingsActivity"
+            android:name=".ClassicGameSettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EndlessGameSettingsActivity"
+            android:name=".ProgressiveGameSettingsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ProgressGameActivity"
@@ -44,14 +44,15 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".SlideUpReceiver">
-            <intent-filter>
-                <action android:name="com.example.stanislavcavajda.memoryblitz.CUSTOM_INTENT" />
-            </intent-filter>
-        </receiver>
 
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".HighScoreActivity"></activity>
+        <activity android:name=".HighScoreActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>

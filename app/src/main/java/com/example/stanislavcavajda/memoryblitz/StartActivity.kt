@@ -27,6 +27,14 @@ class StartActivity : AppCompatActivity() {
         setFullScreen()
         setContentView(R.layout.activity_start)
 
+        DataManager.translatedGraphicPacks.add(getString(R.string.christmas_GP))
+        DataManager.translatedGraphicPacks.add(getString(R.string.family_GP))
+        DataManager.translatedGraphicPacks.add(getString(R.string.scenery_GP))
+        DataManager.translatedGraphicPacks.add(getString(R.string.space_GP))
+        DataManager.translatedGraphicPacks.add(getString(R.string.summer_GP))
+        DataManager.translatedGraphicPacks.add(getString(R.string.toys_GP))
+        DataManager.translatedGraphicPacks.add(getString(R.string.western_GP))
+
         start_game_type_menu.setOnClickListener {
             it.startAnimation(buttonClick)
             var gameTypeActivity = Intent(this,GameTypeActivity::class.java)

@@ -23,7 +23,7 @@ class GameTypeActivity : AppCompatActivity() {
             this.finish()
             DataManager.typeSettingsActivity = Constants.CLASSIC_GAME
             it.startAnimation(buttonClick)
-            var intent = Intent(this, SpeedGameSettingsActivity::class.java)
+            var intent = Intent(this, ClassicGameSettingsActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
         }
@@ -32,7 +32,7 @@ class GameTypeActivity : AppCompatActivity() {
             this.finish()
             DataManager.typeSettingsActivity = Constants.PROGRESS_GAME
             it.startAnimation(buttonClick)
-            var intent = Intent(this, EndlessGameSettingsActivity::class.java)
+            var intent = Intent(this, ProgressiveGameSettingsActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
         }

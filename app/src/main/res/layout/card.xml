@@ -15,11 +15,11 @@
      <android.support.v7.widget.CardView
          android:layout_width="103dp"
          android:layout_height="131dp"
-         android:layout_margin="10dp"
+         android:layout_margin="6dp"
          android:alpha="@{viewModel.checked ? 1f : 0.5f}"
          app:cardBackgroundColor="@color/white"
          android:onClick="@{viewModel.check}"
-         app:cardCornerRadius="20dp"
+         app:cardCornerRadius="5dp"
          app:cardElevation="10dp">
 
          <android.support.constraint.ConstraintLayout

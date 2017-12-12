@@ -18,4 +18,23 @@
     <string name="time_to_remember">Time to remember</string>
     <string name="card">card</string>
     <string name="number_of_cards_per_series">Number of cards per series</string>
+    <string name="christmas_GP">Christmas</string>
+    <string name="family_GP">Family</string>
+    <string name="scenery_GP">Scenery</string>
+    <string name="space_GP">Space</string>
+    <string name="summer_GP">Summer</string>
+    <string name="toys_GP">Toys</string>
+    <string name="western_GP">Western</string>
+    <string name="progressive_desc">zapamätanie si náhodnej sekvencie a nájdenie v správnom poradí</string>
+    <string name="classic_desc">vyberte si obtiažnosť a trénujte</string>
+    <string name="points">points</string>
+    <string name="memorize">Memorize</string>
+    <string name="lets_go">Lets Go</string>
+    <string name="right">Super</string>
+    <string name="end">End</string>
+    <string name="retry">Retry</string>
+    <string name="resume">Resume</string>
+    <string name="pause">Pause</string>
+    <string name="about_thanks">Thanks for downloading and playing.</string>
+
 </resources>
