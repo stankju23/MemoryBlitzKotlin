@@ -21,6 +21,7 @@ class StartActivity : AppCompatActivity() {
 
     val buttonClick = AlphaAnimation(1f, 0.8f)
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,6 +37,7 @@ class StartActivity : AppCompatActivity() {
         DataManager.translatedGraphicPacks.add(getString(R.string.western_GP))
 
         start_game_type_menu.setOnClickListener {
+
             it.startAnimation(buttonClick)
             var gameTypeActivity = Intent(this,GameTypeActivity::class.java)
             startActivity(gameTypeActivity)
@@ -45,6 +47,7 @@ class StartActivity : AppCompatActivity() {
         OverScrollDecoratorHelper.setUpStaticOverScroll(main_layout,OverScrollDecoratorHelper.ORIENTATION_VERTICAL)
 
         score_button.setOnClickListener {
+
             it.startAnimation(buttonClick)
             var intent = Intent(this,HighScoreActivity::class.java)
             startActivity(intent)
@@ -52,16 +55,17 @@ class StartActivity : AppCompatActivity() {
         }
 
         settings_button.setOnClickListener {
+
             it.startAnimation(buttonClick)
             var intent = Intent(this,SettingsActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
         }
 
-        var preferences = this.getSharedPreferences("highScore",Context.MODE_PRIVATE)
+        var scorePreferences = this.getSharedPreferences("highScore",Context.MODE_PRIVATE)
         var gamePreferences = getSharedPreferences("game", Context.MODE_PRIVATE)
-        DataManager.progressGameHighScore = preferences.getInt(Constants.PROGRESS_GAME_HIGH_SCORE,0)
-        DataManager.classicGameHighScore = preferences.getInt(Constants.CLASSIC_GAME_HIGH_SCORE,0)
+        DataManager.progressGameHighScore = scorePreferences.getInt(Constants.PROGRESS_GAME_HIGH_SCORE,0)
+        DataManager.classicGameHighScore = scorePreferences.getInt(Constants.CLASSIC_GAME_HIGH_SCORE,0)
         DataManager.actualCheckedGraphicPack = gamePreferences.getString(Constants.GRAPHIC_PACK,"christmas")
         DataManager.cardMatrix = gamePreferences.getInt(Constants.CARD_MATRIX, 0)
         DataManager.numberOfWantedCards = gamePreferences.getInt(Constants.NUMBER_OF_WANTED_CARDS,0)

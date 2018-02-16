@@ -20,7 +20,11 @@ import android.support.constraint.ConstraintLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
 import android.widget.FrameLayout
+import android.widget.MediaController
 import android.widget.TextView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.example.stanislavcavajda.memoryblitz.*
 
 
 class GamePlanItemViewModel: BaseObservable {
@@ -32,10 +36,10 @@ class GamePlanItemViewModel: BaseObservable {
     var context: Context
     var isAnimation = ObservableBoolean(false)
     var background: ObservableField<Drawable> = ObservableField()
-
     var preferences:SharedPreferences? = null
 
     var handler: Handler? = null
+    lateinit var mInterstitialAd: InterstitialAd
 
     constructor(name: Int, image: Drawable, background: Drawable, clicked: Boolean, context: Context) {
         this.name = name
@@ -46,6 +50,10 @@ class GamePlanItemViewModel: BaseObservable {
         this.background.set(background)
         this.preferences = (context as Activity).getSharedPreferences("highScore",Context.MODE_PRIVATE)
         this.handler = Handler()
+        mInterstitialAd = InterstitialAd(context)
+        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"//test
+        //mInterstitialAd.adUnitId = "ca-app-pub-7144286645481402/8843518771"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
     }
 
     fun itemClick(v: View) {
@@ -87,6 +95,13 @@ class GamePlanItemViewModel: BaseObservable {
                            zistujem ci som nenahral zatial najvyssie skore
                            ak ano ukladam do pamate
                         */
+                        DataManager.playAdd++
+                        if (DataManager.playAdd % 3 == 0) {
+                            if(mInterstitialAd.isLoaded) {
+                                mInterstitialAd.show()
+                            }
+                        }
+
                         saveHighScore(Constants.PROGRESS_GAME_HIGH_SCORE,DataManager.actualScore,DataManager.progressGameHighScore)
                         DataManager.actualScore = 0
 
@@ -149,6 +164,13 @@ class GamePlanItemViewModel: BaseObservable {
                         memorizeText.setText(R.string.right)
 
                     } else {
+                        DataManager.playAdd++
+                        if (DataManager.playAdd % 3 == 0) {
+                            if(mInterstitialAd.isLoaded) {
+                                mInterstitialAd.show()
+                            }
+                        }
+
                         memorizeText.setText(R.string.end)
                         // nenasiel som , schovavam pause button a zobrazujem vsetky tlacitka
                         var pause = (context as Activity).findViewById<FloatingActionButton>(R.id.pause)

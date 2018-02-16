@@ -1,6 +1,7 @@
 package com.example.stanislavcavajda.memoryblitz
 
-import android.app.Activity
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -15,27 +16,33 @@ import android.view.View
 import com.example.stanislavcavajda.memoryblitz.Data.DataManager
 import com.example.stanislavcavajda.memoryblitz.databinding.ActivityProgressGameBinding
 import kotlinx.android.synthetic.main.activity_progress_game.*
-import com.example.stanislavcavajda.memoryblitz.Model.WantedCardModel
+import com.example.stanislavcavajda.memoryblitz.ViewModel.WantedCardModel
 import java.util.*
 import com.example.stanislavcavajda.memoryblitz.ViewModel.*
 import com.mancj.slideup.SlideUp
 import com.mancj.slideup.SlideUpBuilder
 import kotlin.collections.ArrayList
 import com.example.stanislavcavajda.memoryblitz.Data.Constants
+import android.support.v4.view.ViewCompat.setLayerType
+import android.animation.Animator
+import android.transition.Transition
+import android.transition.TransitionManager
 
 
 class ProgressGameActivity : AppCompatActivity() {
 
     var list : ArrayList<Int>? = null
     var index = 0
-    var seconds: Long = 500L
+    var seconds: Long = 1500L
     var preferences:SharedPreferences? = null
     var handler: Handler? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var binding: ActivityProgressGameBinding = DataBindingUtil.setContentView(this,R.layout.activity_progress_game)
         DataManager.pointsList.clear()
+
 
         points.setText("${DataManager.actualScore} ${getString(R.string.points)}")
 
@@ -54,17 +61,15 @@ class ProgressGameActivity : AppCompatActivity() {
         DataManager.actualIndex = 0
 
         list = arrayListOf<Int>(1,5,6)
-
         game_plan.y = 2000f
         flying_card_layour.x = 2000f
 
         println(main_plan_layout.width)
 
-        game_plan.animate().translationY(main_plan_layout.height/2f).duration = 1000
-
-
         var cardList = ArrayList<GamePlanItemViewModel>()
-        handler?.postDelayed(Runnable { game_plan.animate().translationY(2000f).duration = 1000},2000)
+
+        handler?.postDelayed(Runnable { this.runOnUiThread( java.lang.Runnable { game_plan.animate().translationY(0f).duration = 1700 })},0)
+        handler?.postDelayed(Runnable { this.runOnUiThread( java.lang.Runnable { game_plan.animate().translationY(2000f).duration = 1000 })},3000)
 
 
         for (i in 1..9) {
@@ -93,7 +98,7 @@ class ProgressGameActivity : AppCompatActivity() {
         for (i in 0..DataManager.numberOfCards-1) {
             var identifier = resources.getIdentifier("${DataManager.actualCheckedGraphicPack}_${DataManager.listProgressGameCards.get(i)}"
                     ,"drawable",packageName)
-            wantedCards.add(WantedCardModel(DataManager.listProgressGameCards.get(i),ContextCompat.getDrawable(this,identifier)))
+            wantedCards.add(WantedCardModel(DataManager.listProgressGameCards.get(i), ContextCompat.getDrawable(this, identifier)))
         }
 
         binding.wantedCardListViewModel = ProgressGameCardListViewModel(wantedCards)
@@ -132,10 +137,12 @@ class ProgressGameActivity : AppCompatActivity() {
 
 
         activity_progress_resume.setOnClickListener {
+
             slideUp.hide()
         }
 
         activity_progress_end.setOnClickListener {
+
             this.finish()
             if (DataManager.actualScore > DataManager.progressGameHighScore) {
                 DataManager.progressGameHighScore = DataManager.actualScore
@@ -151,9 +158,9 @@ class ProgressGameActivity : AppCompatActivity() {
 
 
         pause_btn.setOnClickListener {
+
             slideUp.show()
             pause_btn.hide()
-
         }
 
         binding.viewModel = viewModel

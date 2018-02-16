@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="viewModel" type="com.example.stanislavcavajda.memoryblitz.ViewModel.GamePlan"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        tools:context="com.example.stanislavcavajda.memoryblitz.ClassicGameActivity">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/game"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/card_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@{viewModel.list.get(0).background}"
+                android:elevation="5dp"
+                android:onClick="@{viewModel.list.get(0).itemClick}"
+                android:padding="30dp"
+                android:src="@{viewModel.list.get(0).image}"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@+id/imageView6"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView6"
+                app:animation="@{viewModel.list.get(0).isAnimation}"
+                app:backFlipp="@{viewModel.list.get(0).clicked}"
+                />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:background="@{viewModel.list.get(1).background}"
+                android:elevation="5dp"
+                android:onClick="@{viewModel.list.get(1).itemClick}"
+                android:padding="30dp"
+                android:src="@{viewModel.list.get(1).image}"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:animation="@{viewModel.list.get(1).isAnimation}"
+                app:backFlipp="@{viewModel.list.get(1).clicked}"/>
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@{viewModel.list.get(2).background}"
+                android:elevation="5dp"
+                android:onClick="@{viewModel.list.get(2).itemClick}"
+                android:padding="30dp"
+                android:src="@{viewModel.list.get(2).image}"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@+id/imageView8"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView8"
+                app:animation="@{viewModel.list.get(2).isAnimation }"
+                app:backFlipp="@{viewModel.list.get(2).clicked}"/>
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@{viewModel.list.get(3).background}"
+                android:elevation="5dp"
+                android:onClick="@{viewModel.list.get(3).itemClick}"
+                android:padding="30dp"
+                android:src="@{viewModel.list.get(3).image}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6"
+                app:animation="@{viewModel.list.get(3).isAnimation}"
+                app:backFlipp="@{viewModel.list.get(3).clicked}" />
+
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</layout>

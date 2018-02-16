@@ -7,6 +7,7 @@ import android.databinding.BaseObservable
 import android.databinding.ObservableArrayList
 import android.view.View
 import com.example.stanislavcavajda.memoryblitz.GameTypeActivity
+import com.example.stanislavcavajda.memoryblitz.MusicController
 import com.example.stanislavcavajda.memoryblitz.ProgressGameActivity
 import com.example.stanislavcavajda.memoryblitz.R
 
@@ -20,9 +21,11 @@ class GamePlan : BaseObservable {
     constructor(itemViewModelList: ArrayList<GamePlanItemViewModel>, context: Context) {
         this.list.addAll(itemViewModelList)
         this.context = context
+
     }
 
     fun retryGame(view: View) {
+
         (context as Activity).finish()
         var replyGame = Intent(context, ProgressGameActivity::class.java)
         context?.startActivity(replyGame)
@@ -30,6 +33,7 @@ class GamePlan : BaseObservable {
     }
 
     fun endGame(view: View) {
+
         (context as Activity).finish()
         var endGame = Intent(context, GameTypeActivity::class.java)
         context?.startActivity(endGame)

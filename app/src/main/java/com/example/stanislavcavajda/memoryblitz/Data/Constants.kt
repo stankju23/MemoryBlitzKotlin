@@ -21,7 +21,9 @@ object Constants {
     const val CARD_MATRIX = "cardMatrix"
     const val NUMBER_OF_WANTED_CARDS = "numberOfWantedCards"
     const val TIME_TO_MEMORIZE = "timeToMemorize"
-
+    const val NOTIFICATION_TIME = "notificationTime"
+    const val NOTIFICATION_HOURS = "notifficationHours"
+    const val NOTIFICATION_MINUTES = "notificationMinutes"
 
 
 

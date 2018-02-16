@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+    <data>
+        <variable name="viewModel" type="com.example.stanislavcavajda.memoryblitz.ViewModel.PointViewModel"/>
+    </data>
+
+
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="3dp">
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/point"
+        android:backgroundTint="@{viewModel.correct == 1 ? @color/correct : viewModel.correct == 0 ? @color/incorrect :  viewModel.correct == 2 ? @color/game_text_color : @color/white}"/>
+</android.support.constraint.ConstraintLayout>
+
+</layout>

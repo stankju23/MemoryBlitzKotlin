@@ -13,13 +13,16 @@ class GameTypeActivity : AppCompatActivity() {
 
     val buttonClick = AlphaAnimation(1f, 0.8f)
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setFullScreen()
         setContentView(R.layout.activity_game_type)
 
+
         speed_game.setOnClickListener {
+
             this.finish()
             DataManager.typeSettingsActivity = Constants.CLASSIC_GAME
             it.startAnimation(buttonClick)
@@ -29,6 +32,7 @@ class GameTypeActivity : AppCompatActivity() {
         }
 
         endless_game.setOnClickListener {
+
             this.finish()
             DataManager.typeSettingsActivity = Constants.PROGRESS_GAME
             it.startAnimation(buttonClick)
@@ -38,6 +42,7 @@ class GameTypeActivity : AppCompatActivity() {
         }
 
         back_button.setOnClickListener {
+
             super.onBackPressed()
             overridePendingTransition(R.anim.abc_slide_in_bottom,R.anim.abc_slide_out_bottom)
         }
@@ -62,6 +67,9 @@ class GameTypeActivity : AppCompatActivity() {
         }
 
     override fun onBackPressed() {
+        this.finish()
+        overridePendingTransition(R.anim.abc_slide_in_bottom,R.anim.abc_slide_out_bottom)
+        super.onBackPressed()
     }
 
 }

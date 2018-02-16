@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">MemoryBlitz</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notification">Notifikácie</string>
+    <string name="yes">Áno</string>
+    <string name="on">Zapnuté</string>
+    <string name="off">Vypnuté</string>
+    <string name="settings">Nastavenia</string>
+    <string name="about">O Autorovi</string>
+    <string name="choose_graphic_pack">Vyber si grafický balíček</string>
+    <string name="go_ahead_and_play">Spusti hru</string>
+    <string name="progress_game">Progresívny</string>
+    <string name="classic_game">Klasický</string>
+    <string name="card_matrix">Mriežka</string>
+    <string name="number_of_cards">Počet kariet na zapamätanie</string>
+    <string name="time_to_remember">Čas na zapamätanie</string>
+    <string name="card">kariet</string>
+    <string name="number_of_cards_per_series">Počet kariet</string>
+    <string name="christmas_GP">Vianoce</string>
+    <string name="family_GP">Rodina</string>
+    <string name="scenery_GP">Sceneria</string>
+    <string name="space_GP">Vesmir</string>
+    <string name="summer_GP">Leto</string>
+    <string name="toys_GP">Hracky</string>
+    <string name="western_GP">Western</string>
+    <string name="progressive_desc">Zapamätanie si náhodnej sekvencie a nájdenie v správnom poradí</string>
+    <string name="classic_desc">Vyberte si obtiažnosť a trénujte</string>
+    <string name="points">body</string>
+    <string name="memorize">Pamätaj</string>
+    <string name="lets_go">Poďme!</string>
+    <string name="right">Správne</string>
+    <string name="end">Koniec</string>
+    <string name="retry">Opakovať</string>
+    <string name="resume">Pokračovať</string>
+    <string name="pause">Pauza</string>
+    <string name="about_thanks">Ďakujem za stiahnutie aplikácie.</string>
+    <string name="get_ready">Pripravte sa</string>
+</resources>

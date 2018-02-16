@@ -1,9 +1,10 @@
 package com.example.stanislavcavajda.memoryblitz.Data
 
 import com.example.stanislavcavajda.memoryblitz.ViewModel.CardViewModel
-import com.example.stanislavcavajda.memoryblitz.Model.WantedCardModel
+import com.example.stanislavcavajda.memoryblitz.ViewModel.WantedCardModel
 import com.example.stanislavcavajda.memoryblitz.ViewModel.GamePlanItemViewModel
 import com.example.stanislavcavajda.memoryblitz.ViewModel.PointViewModel
+
 
 /**
  * Created by stanislavcavajda on 27.9.17.
@@ -60,6 +61,10 @@ object DataManager {
 
     var translatedGraphicPacks = arrayListOf<String>()
 
+    var playAdd = 0
+
+
+
     fun scoreMultiplicierClassicGame() :Double {
         var cardMatrixMultiplicier = 0.0
         var wantedCardsMulitplicier = 0.0
@@ -79,7 +84,7 @@ object DataManager {
     }
     fun scoreMultiplicierProgressivGame() :Double {
         var scoreMultiplicier = 0.0
-        if (numberOfCards < 5) {
+        if (numberOfCards <= 5) {
             scoreMultiplicier = 1.0
         } else {
             when(numberOfCards) {

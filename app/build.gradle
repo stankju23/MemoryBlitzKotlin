@@ -9,23 +9,38 @@ android {
     compileSdkVersion 26
     buildToolsVersion '27.0.1'
     defaultConfig {
-        applicationId "com.example.stanislavcavajda.memoryblitz"
+        applicationId "com.stanislavcavajda.memoryblitz"
         minSdkVersion 21
         targetSdkVersion 26
         multiDexEnabled = true
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("/Users/stanislavcavajda/Desktop/keystores/memoryBlitz.jks")
+            storePassword "stanislav"
+            keyAlias "MemoryBlitz"
+            keyPassword "stanislav"
+
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
     dataBinding.enabled = true
+
+    lintOptions {
+        disable 'MissingTranslation'
+    }
 }
 
 dependencies {

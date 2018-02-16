@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.aigestudio.wheelpicker.WheelPicker
+        android:id="@+id/wheelpicker_hours"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/wheelpicker_minutes"
+        app:layout_constraintEnd_toStartOf="@+id/wheelpicker_minutes"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/wheelpicker_minutes"
+        app:wheel_indicator="true"
+        app:wheel_indicator_color="#919191"
+        app:wheel_indicator_size="1dp"
+        app:wheel_item_text_color="#919191"
+        app:wheel_selected_item_text_color="#919191"
+        app:wheel_visible_item_count="5"
+        app:wheel_atmospheric="true"/>
+
+    <com.aigestudio.wheelpicker.WheelPicker
+        android:id="@+id/wheelpicker_minutes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/wheelpicker_hours"
+        app:layout_constraintTop_toTopOf="parent"
+        app:wheel_atmospheric="true"
+        app:wheel_indicator="true"
+        app:wheel_indicator_color="#919191"
+        app:wheel_indicator_size="1dp"
+        app:wheel_item_text_color="#919191"
+        app:wheel_selected_item_text_color="#919191"
+        app:wheel_visible_item_count="5" />
+
+</android.support.constraint.ConstraintLayout>

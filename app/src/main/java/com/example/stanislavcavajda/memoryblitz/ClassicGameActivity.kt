@@ -14,22 +14,21 @@ import com.example.stanislavcavajda.memoryblitz.Data.DataManager
 import com.example.stanislavcavajda.memoryblitz.Data.Constants
 import com.example.stanislavcavajda.memoryblitz.ViewModel.GamePlan
 import com.example.stanislavcavajda.memoryblitz.ViewModel.GamePlanItemViewModel
-import com.example.stanislavcavajda.memoryblitz.databinding.ActivityClassicGame2x2Binding
-import kotlinx.android.synthetic.main.activity_classic_game_2x2.*
+import com.example.stanislavcavajda.memoryblitz.databinding.ActivityClassicGameBinding
+import kotlinx.android.synthetic.main.activity_classic_game.*
 import com.example.stanislavcavajda.memoryblitz.databinding.TwoXTwoBinding
 import com.example.stanislavcavajda.memoryblitz.databinding.TwoXThreeBinding
 import com.example.stanislavcavajda.memoryblitz.databinding.ThreeXThreeBinding
 import com.example.stanislavcavajda.memoryblitz.databinding.OneCardBinding
 import com.example.stanislavcavajda.memoryblitz.databinding.TwoCardsBinding
 import com.example.stanislavcavajda.memoryblitz.databinding.ThreeCardsBinding
-import com.example.stanislavcavajda.memoryblitz.Model.WantedCardModel
+import com.example.stanislavcavajda.memoryblitz.ViewModel.WantedCardModel
 
 import android.view.View
 import com.example.stanislavcavajda.memoryblitz.ViewModel.TimerViewModel
 import com.example.stanislavcavajda.memoryblitz.ViewModel.WantedCardsListViewModel
 import com.mancj.slideup.SlideUp
 import com.mancj.slideup.SlideUpBuilder
-import kotlinx.android.synthetic.main.activity_progress_game.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -55,7 +54,7 @@ class ClassicGameActivity : AppCompatActivity() {
         DataManager.pauseMillis = (DataManager.timeToMemorize + 2) * 1000L
 
 
-        var binding: ActivityClassicGame2x2Binding = DataBindingUtil.setContentView(this, R.layout.activity_classic_game_2x2)
+        var binding: ActivityClassicGameBinding = DataBindingUtil.setContentView(this, R.layout.activity_classic_game)
         var timerViewModel = TimerViewModel("0:0${DataManager.pauseMillis / 1000}", getString(R.string.memorize), "${DataManager.actualScore} ${getString(R.string.points)}")
         binding.viewModel = timerViewModel
 
@@ -257,6 +256,7 @@ class ClassicGameActivity : AppCompatActivity() {
                 .withStartGravity(Gravity.BOTTOM).build()
 
         pause.setOnClickListener {
+
             slideUp.show();
             pause.hide()
             if (waiting) {
@@ -273,10 +273,12 @@ class ClassicGameActivity : AppCompatActivity() {
 
 
         resume.setOnClickListener {
+
             slideUp.hide()
         }
 
         retry.setOnClickListener {
+
             DataManager.actualScore = 0
             this.finish()
             var intent = Intent(this, ClassicGameActivity::class.java)
@@ -285,10 +287,11 @@ class ClassicGameActivity : AppCompatActivity() {
         }
 
         end.setOnClickListener {
+
             if (DataManager.actualScore > DataManager.classicGameHighScore) {
-                DataManager.progressGameHighScore = DataManager.actualScore
+                DataManager.classicGameHighScore = DataManager.actualScore
                 var editor = preferences?.edit()
-                editor?.putInt(Constants.CLASSIC_GAME_HIGH_SCORE, DataManager.progressGameHighScore)
+                editor?.putInt(Constants.CLASSIC_GAME_HIGH_SCORE, DataManager.classicGameHighScore)
                 editor?.commit()
             }
             DataManager.actualScore = 0

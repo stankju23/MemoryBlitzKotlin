@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.example.stanislavcavajda.memoryblitz.Data.Constants
 import com.example.stanislavcavajda.memoryblitz.Data.DataManager
+import com.example.stanislavcavajda.memoryblitz.MusicController
 import com.example.stanislavcavajda.memoryblitz.R
 import kotlinx.android.synthetic.main.activity_speed_game.view.*
 
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_speed_game.view.*
  * Created by stanislavcavajda on 26.9.17.
  */
 class CardViewModel : BaseObservable{
+
 
     var image = ObservableField<Drawable>()
     var context: Context
@@ -33,6 +35,7 @@ class CardViewModel : BaseObservable{
         this.image.set(ContextCompat.getDrawable(context,id))
         this.title.set(title)
         this.checked = checked
+
     }
 
     fun check(v:View) {
