@@ -41,6 +41,7 @@ class ClassicGameActivity : AppCompatActivity() {
     var timer1: CountDownTimer? = null
 
     var preferences: SharedPreferences? = null
+    var handler: Handler? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -155,15 +156,15 @@ class ClassicGameActivity : AppCompatActivity() {
             }
         }
 
-        var handler = Handler()
-        handler.postDelayed(Runnable {
+
+        handler = Handler()
+        handler?.postDelayed(Runnable {
             for (item in DataManager.classicGameGamePlan) {
                 item.isAnimation.set(true)
             }
         }, DataManager.pauseMillis - 2000)
 
-        var handler2 = Handler()
-        handler2.postDelayed(Runnable {
+        handler?.postDelayed(Runnable {
             for (i in 0..DataManager.wantedCards.size - 1) {
                 var resId = resources.getIdentifier("${DataManager.actualCheckedGraphicPack}_${cardList.get(i).name}", "drawable", packageName)
                 DataManager.wantedCards[i].image.set(ContextCompat.getDrawable(this, resId))
@@ -172,8 +173,8 @@ class ClassicGameActivity : AppCompatActivity() {
 
         viewStub.inflate()
         viewStubWantedCards.inflate()
-        var hanlder = Handler()
-        hanlder.postDelayed(Runnable {
+
+        handler?.postDelayed(Runnable {
             for (item in DataManager.classicGameGamePlan) {
                 var handler1 = Handler()
                 handler1.postDelayed(Runnable {
@@ -207,20 +208,20 @@ class ClassicGameActivity : AppCompatActivity() {
                 }
                 timer1?.start()
 
-                handler.postDelayed(Runnable {
+                handler?.postDelayed(Runnable {
                     for (item in DataManager.classicGameGamePlan) {
                         item.isAnimation.set(true)
                     }
                 }, DataManager.pauseMillis - 2000)
 
-                handler2.postDelayed(Runnable {
+                handler?.postDelayed(Runnable {
                     for (i in 0..DataManager.wantedCards.size - 1) {
                         var resId = resources.getIdentifier("${DataManager.actualCheckedGraphicPack}_${cardList.get(i).name}", "drawable", packageName)
                         DataManager.wantedCards[i].image.set(ContextCompat.getDrawable(this, resId))
                     }
                 }, DataManager.pauseMillis - 1500L)
 
-                hanlder.postDelayed(Runnable {
+                handler?.postDelayed(Runnable {
                     for (item in DataManager.classicGameGamePlan) {
                         var handler1 = Handler()
                         handler1.postDelayed(Runnable {
@@ -261,9 +262,7 @@ class ClassicGameActivity : AppCompatActivity() {
             pause.hide()
             if (waiting) {
                 timer.cancel()
-                handler.removeMessages(0)
-                handler2.removeMessages(0)
-                hanlder.removeMessages(0)
+                handler?.removeMessages(0)
             }
             if (timer1 != null) {
                 timer1?.cancel()
